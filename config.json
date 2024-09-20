@@ -1,6 +1,9 @@
 {
-    "title":"Blog Title",
-    "subTitle":"Blog description",
-    "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
+    "title":"Koi_Blue",
+    "subTitle":"无限进步",
+    "avatarUrl":"https://avatars.githubusercontent.com/u/182211636?v=4",
     "GMEEK_VERSION":"last"
+    "themeMode":"manual",
+    "dayTheme":"dark",
+    "nightTheme":"dark-blue",
 }

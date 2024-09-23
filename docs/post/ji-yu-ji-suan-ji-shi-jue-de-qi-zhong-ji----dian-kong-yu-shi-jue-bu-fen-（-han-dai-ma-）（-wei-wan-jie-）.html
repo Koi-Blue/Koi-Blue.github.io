@@ -119,22 +119,16 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p> <br>
     水平移动有两种主流方案，一是小车型（大多采用<a href="https://wiki-power.com/%E9%BA%A6%E8%BD%AE%E5%B0%8F%E8%BD%A6" rel="nofollow">麦克纳姆轮小车</a>，相信你知道这是什么），另一是<a href="https://baike.baidu.com/item/%E9%BE%99%E9%97%A8%E6%9E%B6/6163984" rel="nofollow">龙门架</a>结构，我们针对龙门式展开；相信你现在已经有了自己理想的移动方案，或是主动轮转动，或是齿轮履带拉动，这些都好，只不过需要注意的是：我们的轮子或齿轮需要像汽车的主动轮同样是左右对称的，这将拯救松散的车架和瘪瘪的钱包。<br>
  <br>
-    因为考虑到转速、扭矩，最重要的还有经费问题，我们最终采用了两块57步进电机和一块42步进电机，驱动板型号为DM542（经费充足的条件下可以选择扭力更大，转速更加优秀的直流电机）。<strong>在这里统一说明</strong>，该项目的上位机平台为一块树莓派4B，下位机均为arduino_uno。在这里将三块电机与驱动板正确连接后，将驱动板与arduino连接。</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#include</span> <span class="pl-s">&lt;AccelStepper.h&gt;</span>
-
-<span class="pl-c">// 定义步进电机和引脚</span>
-<span class="pl-k">#define</span> <span class="pl-s1">dirPin1</span> 4
+    因为考虑到转速、扭矩，最重要的还有经费问题，我们最终采用了两块57步进电机和一块42步进电机，驱动板型号为DM542（经费充足的条件下可以选择扭力更大，转速更加优秀的直流电机）。<strong>在这里统一说明</strong>，该项目的上位机平台为一块树莓派4B，下位机均为arduino_uno。在这里将三块电机与驱动板正确连接后，将驱动板与arduino连接。硬件解决了，是时候开始软件了：<br>
+    如果我们希望当输入步数时，电机输出步数而不是方向，那么对于引脚的定义和正确连接就至关重要，又或许你更希望先写代码再连线，这些都没关系，只要选对正确的引脚；由于我们要给步进电机两个信息，即脉冲信息和方向信息，所以除了电源和共地之外，就要选取两个arduino上的数字引脚连接电机，如下的  <mark>dirPin</mark>  即为方向引脚，  <mark>stepPin</mark>  即为脉冲引脚，相邻的两个引脚定义一个电机：</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#define</span> <span class="pl-s1">dirPin1</span> 4
 <span class="pl-k">#define</span> <span class="pl-s1">stepPin1</span> 3
 <span class="pl-k">#define</span> <span class="pl-s1">dirPin2</span> 6
 <span class="pl-k">#define</span> <span class="pl-s1">stepPin2</span> 5
 <span class="pl-k">#define</span> <span class="pl-s1">dirPin3</span> 8
-<span class="pl-k">#define</span> <span class="pl-s1">stepPin3</span> 7
-
-<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper1</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin1</span>, <span class="pl-smi">dirPin1</span>);
-<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper2</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin2</span>, <span class="pl-smi">dirPin2</span>);
-<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper3</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin3</span>, <span class="pl-smi">dirPin3</span>);
-
-<span class="pl-smi">void</span> <span class="pl-en">setup</span>() {
+<span class="pl-k">#define</span> <span class="pl-s1">stepPin3</span> 7</pre></div>
+<p>    我们给每个引脚起好了名字，终于可以使唤他们做点什么了，那就先考虑考虑如何跑起来吧。由于考虑到电机启动时的同步轮（或轮子）打滑问题，在不断地尝试下，确定了分别对应于不同型号的步进电机的加速度；至于速度上限，可以根据实际运行情况进行尝试，这里因为缓启动解决了打滑问题，而我们希望尽可能快速地完成任务，所以对于速度上限的设定远超于实际最大速度。</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">void</span> <span class="pl-en">setup</span>() {
   <span class="pl-s1">Serial</span>.<span class="pl-en">begin</span>(<span class="pl-c1">115200</span>);
   <span class="pl-s1">stepper1</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
   <span class="pl-s1">stepper1</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
@@ -142,17 +136,16 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
   <span class="pl-s1">stepper2</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
   <span class="pl-s1">stepper3</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">5000</span>);
   <span class="pl-s1">stepper3</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">800</span>);
-}
-
-<span class="pl-smi">void</span> <span class="pl-en">loop</span>() {
-  <span class="pl-k">if</span> (<span class="pl-s1">Serial</span>.<span class="pl-en">available</span>() <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>) {
-    <span class="pl-smi">String</span> <span class="pl-s1">inputString</span> <span class="pl-c1">=</span> <span class="pl-s1">Serial</span>.<span class="pl-en">readStringUntil</span>(<span class="pl-c1">'\n'</span>); <span class="pl-c">// 读取输入字符串</span>
-    <span class="pl-k">if</span> (<span class="pl-s1">inputString</span>.<span class="pl-en">length</span>() <span class="pl-c1">==</span> <span class="pl-c1">9</span>) { <span class="pl-c">// 确保输入字符串长度为9</span>
-      <span class="pl-smi">char</span> <span class="pl-s1">motorCode</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-c1">2</span>).<span class="pl-en">toInt</span>();
-      <span class="pl-smi">char</span> <span class="pl-s1">direction</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">2</span>, <span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();
-      <span class="pl-smi">int</span> <span class="pl-s1">steps</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();
-
-      <span class="pl-k">if</span> (<span class="pl-s1">motorCode</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) { <span class="pl-c">// 控制步进电机1和2</span>
+}</pre></div>
+<p>    由于我们的上下位机通信方式，通信方式是显而易见的，而交流规则是朦胧的。我时常在想，如果我只需要说几个字，别人就能懂我的核心意思，那效率会有多高？好在现在可以短暂实现了。我们需要发号施令的内容包含且限于：</p>
+<ul>
+<li>哪位电机？</li>
+<li>哪个方向？</li>
+<li>走多少步？<br>
+&amp;nbsp；<br>
+    我们先从在这里用1代表控制步进电机1和2，3控制步进电机03；事实上这并不是一定的，如果你想要修改，可以根据需求修改成任何你希望的数字。一头雾水吗，看一眼代码就全明白了：</li>
+</ul>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">motorCode</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) { <span class="pl-c">// 控制步进电机1和2</span>
         <span class="pl-k">if</span> (<span class="pl-s1">direction</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) {
           <span class="pl-s1">stepper1</span>.<span class="pl-en">move</span>(<span class="pl-s1">steps</span>);
           <span class="pl-s1">stepper2</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
@@ -166,29 +159,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         } <span class="pl-k">else</span> {
           <span class="pl-s1">stepper3</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
         }
-      }
-
-      <span class="pl-c">// 开始运动步进电机</span>
-      <span class="pl-k">while</span> (<span class="pl-s1">stepper1</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">stepper2</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">stepper3</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span>) {
-        <span class="pl-s1">stepper1</span>.<span class="pl-en">run</span>();
-        <span class="pl-s1">stepper2</span>.<span class="pl-en">run</span>();
-        <span class="pl-s1">stepper3</span>.<span class="pl-en">run</span>();
-      }
-    }
-  }
-}</pre></div>
-<p>    以上是步进电机部分的下位机代码，可以直接在arduinoIDE中烧录给板子；我们从速度开始：</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">void</span> <span class="pl-en">setup</span>() {
-  <span class="pl-s1">Serial</span>.<span class="pl-en">begin</span>(<span class="pl-c1">115200</span>);
-  <span class="pl-s1">stepper1</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
-  <span class="pl-s1">stepper1</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
-  <span class="pl-s1">stepper2</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
-  <span class="pl-s1">stepper2</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
-  <span class="pl-s1">stepper3</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">5000</span>);
-  <span class="pl-s1">stepper3</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">800</span>);
-}</pre></div>
-<p>    其中波特率部分很好理解，相信大家都熟悉了；由于考虑到电机启动时的同步轮（轮子）打滑问题，再不断地尝试下，确定了分别对应于不同型号的步进电机的加速度，至于速度上限，可以根据实际运行情况进行尝试，这里因为缓启动解决了打滑问题，而我们希望尽可能快速地完成任务，所以对于速度上限的设定远超于实际最大速度。<br>
-    后面的控制逻辑即为要点，要看懂这里如何应用，不得不放出上位机代码了：</p>
+      }</pre></div>
+<p>    后面的控制逻辑即为要点，要看懂这里如何应用，不得不放出上位机代码了：</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">serial</span>
 <span class="pl-k">import</span> <span class="pl-s1">time</span>
 

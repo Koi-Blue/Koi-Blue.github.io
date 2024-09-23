@@ -143,7 +143,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>哪个方向？</li>
 <li>走多少步？<br>
 &amp;nbsp；<br>
-    我们先从在这里用1代表控制步进电机1和2，3控制步进电机03；事实上这并不是一定的，如果你想要修改，可以根据需求修改成任何你希望的数字。一头雾水吗，看一眼代码就全明白了：</li>
+    我们先在这里用1代表控制步进电机1和2，3控制步进电机03；接着的00和01则代表相反的方向；为了实现自由控制，这里的输入并不是一定的，如果你希望修改，可以根据需求且符合规则地修改成任何你希望的数字。一头雾水吗，看一眼代码就全明白了：</li>
 </ul>
 <div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">motorCode</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) { <span class="pl-c">// 控制步进电机1和2</span>
         <span class="pl-k">if</span> (<span class="pl-s1">direction</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) {
@@ -160,40 +160,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
           <span class="pl-s1">stepper3</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
         }
       }</pre></div>
-<p>    后面的控制逻辑即为要点，要看懂这里如何应用，不得不放出上位机代码了：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">serial</span>
-<span class="pl-k">import</span> <span class="pl-s1">time</span>
-
-<span class="pl-k">def</span> <span class="pl-en">send_command</span>(<span class="pl-s1">ser</span>, <span class="pl-s1">command</span>):
-    <span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s1">command</span>.<span class="pl-en">encode</span>())
-    <span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s">b'<span class="pl-cce">\n</span>'</span>)  <span class="pl-c"># 发送换行符来结束命令</span>
-    <span class="pl-en">print</span>(<span class="pl-s">f"Sent command: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">command</span><span class="pl-kos">}</span></span>"</span>)
-
-<span class="pl-k">def</span> <span class="pl-en">main</span>():
-    <span class="pl-s1">port</span> <span class="pl-c1">=</span> <span class="pl-s">'COM7'</span>  <span class="pl-c"># Arduino连接的串口端口（此处为PC端测试接口，如果上位机为linux系统，大多为ttyACM*）</span>
-    <span class="pl-s1">baudrate</span> <span class="pl-c1">=</span> <span class="pl-c1">115200</span>  <span class="pl-c"># 确保与Arduino设置的波特率一致</span>
-
-    <span class="pl-k">try</span>:
-        <span class="pl-s1">ser</span> <span class="pl-c1">=</span> <span class="pl-s1">serial</span>.<span class="pl-v">Serial</span>(<span class="pl-s1">port</span>, <span class="pl-s1">baudrate</span>, <span class="pl-s1">timeout</span><span class="pl-c1">=</span><span class="pl-c1">1</span>)
-        <span class="pl-s1">time</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">2</span>)  <span class="pl-c"># 等待串口稳定</span>
-
-        <span class="pl-k">while</span> <span class="pl-c1">True</span>:
-            <span class="pl-s1">command</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Enter command (9 characters, e.g., 010002000): "</span>)
-
-            <span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">command</span>) <span class="pl-c1">==</span> <span class="pl-c1">9</span>:
-                <span class="pl-en">send_command</span>(<span class="pl-s1">ser</span>, <span class="pl-s1">command</span>)
-            <span class="pl-k">else</span>:
-                <span class="pl-en">print</span>(<span class="pl-s">"Invalid input. Please enter a 9-character string."</span>)
-
-    <span class="pl-k">except</span> <span class="pl-s1">serial</span>.<span class="pl-v">SerialException</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
-        <span class="pl-en">print</span>(<span class="pl-s">f"Error: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">e</span><span class="pl-kos">}</span></span>"</span>)
-    <span class="pl-k">finally</span>:
-        <span class="pl-k">if</span> <span class="pl-s1">ser</span>.<span class="pl-s1">is_open</span>:
-            <span class="pl-s1">ser</span>.<span class="pl-en">close</span>()
-
-<span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
-    <span class="pl-en">main</span>()</pre></div>
-<p>    不难发现，在步进电机的控制下，我预留了一个9位数接口，</p>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
@@ -214,7 +180,48 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <td align="center">运行04750步</td>
 </tr>
 </tbody>
-</table></markdown-accessiblity-table></div>
+</table></markdown-accessiblity-table>
+<p>    Fine？现在我们的下位机准备好了，准备好接收来自串口的一些神秘数字，是吗？No！在它张开嘴巴之前，并不算完全准备好；现在让我们撬开它的嘴巴：</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">String</span> <span class="pl-s1">inputString</span> <span class="pl-c1">=</span> <span class="pl-s1">Serial</span>.<span class="pl-en">readStringUntil</span>(<span class="pl-c1">'\n'</span>); <span class="pl-c">// 读取输入字符串</span>
+    <span class="pl-k">if</span> (<span class="pl-s1">inputString</span>.<span class="pl-en">length</span>() <span class="pl-c1">==</span> <span class="pl-c1">9</span>) { <span class="pl-c">// 确保输入字符串长度为9</span>
+      <span class="pl-smi">char</span> <span class="pl-s1">motorCode</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-c1">2</span>).<span class="pl-en">toInt</span>();
+      <span class="pl-smi">char</span> <span class="pl-s1">direction</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">2</span>, <span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();
+      <span class="pl-smi">int</span> <span class="pl-s1">steps</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();</pre></div>
+<p>    Fine. 这下真的可以发号施令了。<br>
+    很显然，我们对发号施令这件事还是没有做好准备的，为了满足高效率，就需要写出一个上位机程序用来管理这个arduino设备了：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">serial</span>
+<span class="pl-k">import</span> <span class="pl-s1">time</span>
+
+<span class="pl-k">class</span> <span class="pl-v">StepperMotorControl</span>:
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">port</span><span class="pl-c1">=</span><span class="pl-s">'COM7'</span>, <span class="pl-s1">baudrate</span><span class="pl-c1">=</span><span class="pl-c1">115200</span>): <span class="pl-c"># 这里的port一定要记得修改成正确的接口序号</span>
+        <span class="pl-s1">self</span>.<span class="pl-s1">ser</span> <span class="pl-c1">=</span> <span class="pl-s1">serial</span>.<span class="pl-v">Serial</span>(<span class="pl-s1">port</span>, <span class="pl-s1">baudrate</span>, <span class="pl-s1">timeout</span><span class="pl-c1">=</span><span class="pl-c1">1</span>)
+        <span class="pl-s1">time</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">2</span>)  <span class="pl-c"># 等待串口稳定</span>
+
+    <span class="pl-k">def</span> <span class="pl-en">send_command</span>(<span class="pl-s1">self</span>, <span class="pl-s1">command</span>):
+        <span class="pl-s">"""向Arduino发送9个字符长度的命令"""</span>
+        <span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">command</span>) <span class="pl-c1">==</span> <span class="pl-c1">9</span>:
+            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s1">command</span>.<span class="pl-en">encode</span>())
+            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s">b'<span class="pl-cce">\n</span>'</span>)  <span class="pl-c"># 发送换行符来结束命令</span>
+            <span class="pl-en">print</span>(<span class="pl-s">f"Sent command: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">command</span><span class="pl-kos">}</span></span>"</span>)
+        <span class="pl-k">else</span>:
+            <span class="pl-k">raise</span> <span class="pl-v">ValueError</span>(<span class="pl-s">"Command must be 9 characters long."</span>)
+
+    <span class="pl-k">def</span> <span class="pl-en">close</span>(<span class="pl-s1">self</span>):
+        <span class="pl-k">if</span> <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-s1">is_open</span>:
+            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">close</span>()
+
+<span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+    <span class="pl-s1">stepper</span> <span class="pl-c1">=</span> <span class="pl-v">StepperMotorControl</span>()
+    <span class="pl-s1">stepper</span>.<span class="pl-en">send_command</span>(<span class="pl-s">"010002000"</span>)
+    <span class="pl-s1">stepper</span>.<span class="pl-en">close</span>()</pre></div>
+<p>    这段python代码很简单，只实现一个功能：把一个来自于用户输入的9位数字发送给下位机。</p>
+<blockquote>
+<p>if <strong>name</strong> == "<strong>main</strong>":<br>
+    stepper = StepperMotorControl()<br>
+    stepper.send_command("010002000")<br>
+    stepper.close()<br>
+    该特性用于单独运行该代码。因为我们很容易注意到，代码中并不包含<mark>main()</mark>函数，所以将基于该命令进行单独测试代码的可行性。</p>
+</blockquote></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

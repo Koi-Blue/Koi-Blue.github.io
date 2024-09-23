@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark-blue" data-light-theme="dark" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/182211636?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 0 写在前面
+&nbsp;
+&ensp;&ensp;&ensp;&ensp;找到适应自己的工作节奏以及合作伙伴将是高效完成项目的前提。">
+<meta property="og:title" content="基于计算机视觉的起重机--电控与视觉部分（含代码）（未完结）">
+<meta property="og:description" content="# 0 写在前面
+&nbsp;
+&ensp;&ensp;&ensp;&ensp;找到适应自己的工作节奏以及合作伙伴将是高效完成项目的前提。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Koi-Blue.github.io/post/ji-yu-ji-suan-ji-shi-jue-de-qi-zhong-ji----dian-kong-yu-shi-jue-bu-fen-%EF%BC%88-han-dai-ma-%EF%BC%89%EF%BC%88-wei-wan-jie-%EF%BC%89.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/182211636?v=4">
+<title>基于计算机视觉的起重机--电控与视觉部分（含代码）（未完结）</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">基于计算机视觉的起重机--电控与视觉部分（含代码）（未完结）</h1>
+<div class="title-right">
+    <a href="https://Koi-Blue.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Koi-Blue/Koi-Blue.github.io/issues/3" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>0 写在前面</h1>
+<p> <br>
+    找到适应自己的工作节奏以及合作伙伴将是高效完成项目的前提。</p>
+<blockquote>
+<p>by the way 本文不具体展示机械结构设计部分，原因是小鱼不具有该部分的版权 :  (</p>
+</blockquote>
+<h1>1 功能描述</h1>
+<p> <br>
+    通过一键启动的（没错是鼠标，不过添加一个按键事件也是一件不难的事）自动起重机器人，对于一定范围内的重物（本文仅针对单钩砝码，是的，秤砣）进行自动识别并通过抓手进行抓取，抓取后需要将该重物放置到固定点位，至此为完成了对该重物的作业；下文将从外向里依次解决自动化的实现问题。</p>
+<h2>1.1 机架的水平移动</h2>
+<p> <br>
+    机架的核心抓取部分（即抓手），并不是每时每刻都处于每一次作业的理想位置的，所以要完成作业固然少不了：跑过来，跑过去。</p>
+<h2>1.2 抓手起降</h2>
+<p> <br>
+    在作业中难免发生目标位置的高度不一致的问题，针对本问题即为抓取单钩砝码的高度与放置高度并不一致，且需要一定程度的避免碰撞和拖地等问题，上下移动将是完成任务的又一重点。</p>
+<h2>1.3 抓手的抓取作业</h2>
+<p> <br>
+    不把东西拿起来，靠意念是不能作业的 ：）</p>
+<h2>1.4 计算机视觉</h2>
+<p> <br>
+    摸黑在房间走路也难免踢到床头，不具备视觉的起重机将更加抓瞎（固化方案将消耗更多能源与时间），视觉将是灵魂一举。</p>
+<h2>1.5 把他们串起来</h2>
+<p> <br>
+    我猜你也不希望车子爪子各玩儿各的吧。<br>
+ </p>
+<h1>2 功能实现</h1>
+<p> <br>
+    好的我们已经知道了需要哪些部分才能赋我们的起重机以赛博生命，坐上小鱼的老爷车，一起来看看吧！</p>
+<h1>2.1 机架的水平移动</h1>
+<p> <br>
+    水平移动有两种主流方案，一是小车型（大多采用<a href="https://wiki-power.com/%E9%BA%A6%E8%BD%AE%E5%B0%8F%E8%BD%A6" rel="nofollow">麦克纳姆轮小车</a>，相信你知道这是什么），另一是<a href="https://baike.baidu.com/item/%E9%BE%99%E9%97%A8%E6%9E%B6/6163984" rel="nofollow">龙门架</a>结构，我们针对龙门式展开；相信你现在已经有了自己理想的移动方案，或是主动轮转动，或是齿轮履带拉动，这些都好，只不过需要注意的是：我们的轮子或齿轮需要像汽车的主动轮同样是左右对称的，这将拯救松散的车架和瘪瘪的钱包。<br>
+ <br>
+    因为考虑到转速、扭矩，最重要的还有经费问题，我们最终采用了两块57步进电机和一块42步进电机，驱动板型号为DM542（经费充足的条件下可以选择扭力更大，转速更加优秀的直流电机）。<strong>在这里统一说明</strong>，该项目的上位机平台为一块树莓派4B，下位机均为arduino_uno。在这里将三块电机与驱动板正确连接后，将驱动板与arduino连接。</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#include</span> <span class="pl-s">&lt;AccelStepper.h&gt;</span>
+
+<span class="pl-c">// 定义步进电机和引脚</span>
+<span class="pl-k">#define</span> <span class="pl-s1">dirPin1</span> 4
+<span class="pl-k">#define</span> <span class="pl-s1">stepPin1</span> 3
+<span class="pl-k">#define</span> <span class="pl-s1">dirPin2</span> 6
+<span class="pl-k">#define</span> <span class="pl-s1">stepPin2</span> 5
+<span class="pl-k">#define</span> <span class="pl-s1">dirPin3</span> 8
+<span class="pl-k">#define</span> <span class="pl-s1">stepPin3</span> 7
+
+<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper1</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin1</span>, <span class="pl-smi">dirPin1</span>);
+<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper2</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin2</span>, <span class="pl-smi">dirPin2</span>);
+<span class="pl-smi">AccelStepper</span> <span class="pl-en">stepper3</span>(<span class="pl-smi">AccelStepper</span>::<span class="pl-c1">DRIVER</span>, <span class="pl-smi">stepPin3</span>, <span class="pl-smi">dirPin3</span>);
+
+<span class="pl-smi">void</span> <span class="pl-en">setup</span>() {
+  <span class="pl-s1">Serial</span>.<span class="pl-en">begin</span>(<span class="pl-c1">115200</span>);
+  <span class="pl-s1">stepper1</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
+  <span class="pl-s1">stepper1</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
+  <span class="pl-s1">stepper2</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
+  <span class="pl-s1">stepper2</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
+  <span class="pl-s1">stepper3</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">5000</span>);
+  <span class="pl-s1">stepper3</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">800</span>);
+}
+
+<span class="pl-smi">void</span> <span class="pl-en">loop</span>() {
+  <span class="pl-k">if</span> (<span class="pl-s1">Serial</span>.<span class="pl-en">available</span>() <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>) {
+    <span class="pl-smi">String</span> <span class="pl-s1">inputString</span> <span class="pl-c1">=</span> <span class="pl-s1">Serial</span>.<span class="pl-en">readStringUntil</span>(<span class="pl-c1">'\n'</span>); <span class="pl-c">// 读取输入字符串</span>
+    <span class="pl-k">if</span> (<span class="pl-s1">inputString</span>.<span class="pl-en">length</span>() <span class="pl-c1">==</span> <span class="pl-c1">9</span>) { <span class="pl-c">// 确保输入字符串长度为9</span>
+      <span class="pl-smi">char</span> <span class="pl-s1">motorCode</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">0</span>, <span class="pl-c1">2</span>).<span class="pl-en">toInt</span>();
+      <span class="pl-smi">char</span> <span class="pl-s1">direction</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">2</span>, <span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();
+      <span class="pl-smi">int</span> <span class="pl-s1">steps</span> <span class="pl-c1">=</span> <span class="pl-s1">inputString</span>.<span class="pl-en">substring</span>(<span class="pl-c1">4</span>).<span class="pl-en">toInt</span>();
+
+      <span class="pl-k">if</span> (<span class="pl-s1">motorCode</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>) { <span class="pl-c">// 控制步进电机1和2</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">direction</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) {
+          <span class="pl-s1">stepper1</span>.<span class="pl-en">move</span>(<span class="pl-s1">steps</span>);
+          <span class="pl-s1">stepper2</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
+        } <span class="pl-k">else</span> {
+          <span class="pl-s1">stepper1</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
+          <span class="pl-s1">stepper2</span>.<span class="pl-en">move</span>(<span class="pl-s1">steps</span>);
+        }
+      } <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-s1">motorCode</span> <span class="pl-c1">==</span> <span class="pl-c1">3</span>) { <span class="pl-c">// 控制步进电机3</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">direction</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>) {
+          <span class="pl-s1">stepper3</span>.<span class="pl-en">move</span>(<span class="pl-s1">steps</span>);
+        } <span class="pl-k">else</span> {
+          <span class="pl-s1">stepper3</span>.<span class="pl-en">move</span>(<span class="pl-c1">-</span><span class="pl-s1">steps</span>);
+        }
+      }
+
+      <span class="pl-c">// 开始运动步进电机</span>
+      <span class="pl-k">while</span> (<span class="pl-s1">stepper1</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">stepper2</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">stepper3</span>.<span class="pl-en">distanceToGo</span>() <span class="pl-c1">!=</span> <span class="pl-c1">0</span>) {
+        <span class="pl-s1">stepper1</span>.<span class="pl-en">run</span>();
+        <span class="pl-s1">stepper2</span>.<span class="pl-en">run</span>();
+        <span class="pl-s1">stepper3</span>.<span class="pl-en">run</span>();
+      }
+    }
+  }
+}</pre></div>
+<p>    以上是步进电机部分的下位机代码，可以直接在arduinoIDE中烧录给板子；我们从速度开始：</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-smi">void</span> <span class="pl-en">setup</span>() {
+  <span class="pl-s1">Serial</span>.<span class="pl-en">begin</span>(<span class="pl-c1">115200</span>);
+  <span class="pl-s1">stepper1</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
+  <span class="pl-s1">stepper1</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
+  <span class="pl-s1">stepper2</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">1000000</span>);
+  <span class="pl-s1">stepper2</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">10000</span>);
+  <span class="pl-s1">stepper3</span>.<span class="pl-en">setMaxSpeed</span>(<span class="pl-c1">5000</span>);
+  <span class="pl-s1">stepper3</span>.<span class="pl-en">setAcceleration</span>(<span class="pl-c1">800</span>);
+}</pre></div>
+<p>    其中波特率部分很好理解，相信大家都熟悉了；由于考虑到电机启动时的同步轮（轮子）打滑问题，再不断地尝试下，确定了分别对应于不同型号的步进电机的加速度，至于速度上限，可以根据实际运行情况进行尝试，这里因为缓启动解决了打滑问题，而我们希望尽可能快速地完成任务，所以对于速度上限的设定远超于实际最大速度。<br>
+    后面的控制逻辑即为要点，要看懂这里如何应用，不得不放出上位机代码了：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">serial</span>
+<span class="pl-k">import</span> <span class="pl-s1">time</span>
+
+<span class="pl-k">def</span> <span class="pl-en">send_command</span>(<span class="pl-s1">ser</span>, <span class="pl-s1">command</span>):
+    <span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s1">command</span>.<span class="pl-en">encode</span>())
+    <span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s">b'<span class="pl-cce">\n</span>'</span>)  <span class="pl-c"># 发送换行符来结束命令</span>
+    <span class="pl-en">print</span>(<span class="pl-s">f"Sent command: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">command</span><span class="pl-kos">}</span></span>"</span>)
+
+<span class="pl-k">def</span> <span class="pl-en">main</span>():
+    <span class="pl-s1">port</span> <span class="pl-c1">=</span> <span class="pl-s">'COM7'</span>  <span class="pl-c"># Arduino连接的串口端口（此处为PC端测试接口，如果上位机为linux系统，大多为ttyACM*）</span>
+    <span class="pl-s1">baudrate</span> <span class="pl-c1">=</span> <span class="pl-c1">115200</span>  <span class="pl-c"># 确保与Arduino设置的波特率一致</span>
+
+    <span class="pl-k">try</span>:
+        <span class="pl-s1">ser</span> <span class="pl-c1">=</span> <span class="pl-s1">serial</span>.<span class="pl-v">Serial</span>(<span class="pl-s1">port</span>, <span class="pl-s1">baudrate</span>, <span class="pl-s1">timeout</span><span class="pl-c1">=</span><span class="pl-c1">1</span>)
+        <span class="pl-s1">time</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">2</span>)  <span class="pl-c"># 等待串口稳定</span>
+
+        <span class="pl-k">while</span> <span class="pl-c1">True</span>:
+            <span class="pl-s1">command</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Enter command (9 characters, e.g., 010002000): "</span>)
+
+            <span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">command</span>) <span class="pl-c1">==</span> <span class="pl-c1">9</span>:
+                <span class="pl-en">send_command</span>(<span class="pl-s1">ser</span>, <span class="pl-s1">command</span>)
+            <span class="pl-k">else</span>:
+                <span class="pl-en">print</span>(<span class="pl-s">"Invalid input. Please enter a 9-character string."</span>)
+
+    <span class="pl-k">except</span> <span class="pl-s1">serial</span>.<span class="pl-v">SerialException</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">f"Error: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">e</span><span class="pl-kos">}</span></span>"</span>)
+    <span class="pl-k">finally</span>:
+        <span class="pl-k">if</span> <span class="pl-s1">ser</span>.<span class="pl-s1">is_open</span>:
+            <span class="pl-s1">ser</span>.<span class="pl-en">close</span>()
+
+<span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+    <span class="pl-en">main</span>()</pre></div>
+<p>    不难发现，在步进电机的控制下，我预留了一个9位数接口，</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">1，2位</th>
+<th align="center">3，4位</th>
+<th align="center">其余五位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">01 or 03</td>
+<td align="center">00 or 01</td>
+<td align="center">04750</td>
+</tr>
+<tr>
+<td align="center">01代表步进电机1和2，03代表步进电机3</td>
+<td align="center">00和01代表不同方向</td>
+<td align="center">运行04750步</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Koi-Blue.github.io">Koi_Blue</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Koi-Blue/Koi-Blue.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>

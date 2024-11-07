@@ -86,7 +86,7 @@ int main() {
     // 显示图像
     cv::imshow("Display Image", image);
 
-    // 等待用户按键
+    // 0为等待用户按键，也可以创建延时，你们懂
     cv::waitKey(0);
 
     // 销毁所有窗口
@@ -159,7 +159,7 @@ cv::waitKey(0);
  - ` OpenCV ` 允许直接访问和修改图像的像素值。通过 ` cv::Mat ` 对象可以访问图像的每个像素。
 ``` cpp
 // 访问图像的第(100,100)个像素
-cv::Vec3b color = image.at<cv::Vec3b>(100, 100);  // BGR顺序
+cv::Vec3b color = image.at<cv::Vec3b>(100, 100);  // BGR顺序，这很细节
 std::cout << "Pixel at (100, 100): " 
           << "Blue: " << (int)color[0] << " "
           << "Green: " << (int)color[1] << " "
@@ -356,8 +356,8 @@ int main() {
     Shape* shape1 = new Circle();
     Shape* shape2 = new Square();
 
-    shape1->draw();  // Drawing a circle
-    shape2->draw();  // Drawing a square
+    shape1->draw();
+    shape2->draw(); 
 
     delete shape1;
     delete shape2;

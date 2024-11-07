@@ -180,7 +180,7 @@ CMakeLists.txt :</li>
     <span class="pl-c"><span class="pl-c">//</span> 显示图像</span>
     <span class="pl-c1">cv::imshow</span>(<span class="pl-s"><span class="pl-pds">"</span>Display Image<span class="pl-pds">"</span></span>, image);
 
-    <span class="pl-c"><span class="pl-c">//</span> 等待用户按键</span>
+    <span class="pl-c"><span class="pl-c">//</span> 0为等待用户按键，也可以创建延时，你们懂</span>
     <span class="pl-c1">cv::waitKey</span>(<span class="pl-c1">0</span>);
 
     <span class="pl-c"><span class="pl-c">//</span> 销毁所有窗口</span>
@@ -257,7 +257,7 @@ cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, <span class="pl-c1">45<
 <li><code class="notranslate">OpenCV</code> 允许直接访问和修改图像的像素值。通过 <code class="notranslate">cv::Mat</code> 对象可以访问图像的每个像素。</li>
 </ul>
 <div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-c"><span class="pl-c">//</span> 访问图像的第(100,100)个像素</span>
-cv::Vec3b color = image.at&lt;cv::Vec3b&gt;(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>);  <span class="pl-c"><span class="pl-c">//</span> BGR顺序</span>
+cv::Vec3b color = image.at&lt;cv::Vec3b&gt;(<span class="pl-c1">100</span>, <span class="pl-c1">100</span>);  <span class="pl-c"><span class="pl-c">//</span> BGR顺序，这很细节</span>
 std::cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Pixel at (100, 100): <span class="pl-pds">"</span></span> 
           &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Blue: <span class="pl-pds">"</span></span> &lt;&lt; (<span class="pl-k">int</span>)color[<span class="pl-c1">0</span>] &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>
           &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Green: <span class="pl-pds">"</span></span> &lt;&lt; (<span class="pl-k">int</span>)color[<span class="pl-c1">1</span>] &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>
@@ -452,8 +452,8 @@ image.at&lt;cv::Vec3b&gt;(<span class="pl-c1">100</span>, <span class="pl-c1">10
     Shape* shape1 = <span class="pl-k">new</span> <span class="pl-c1">Circle</span>();
     Shape* shape2 = <span class="pl-k">new</span> <span class="pl-c1">Square</span>();
 
-    shape1-&gt;<span class="pl-c1">draw</span>();  <span class="pl-c"><span class="pl-c">//</span> Drawing a circle</span>
-    shape2-&gt;<span class="pl-c1">draw</span>();  <span class="pl-c"><span class="pl-c">//</span> Drawing a square</span>
+    shape1-&gt;<span class="pl-c1">draw</span>();
+    shape2-&gt;<span class="pl-c1">draw</span>(); 
 
     <span class="pl-k">delete</span> shape1;
     <span class="pl-k">delete</span> shape2;

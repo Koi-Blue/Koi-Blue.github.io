@@ -271,6 +271,199 @@ image.at&lt;cv::Vec3b&gt;(<span class="pl-c1">100</span>, <span class="pl-c1">10
 <ul>
 <li><code class="notranslate">image.at&lt;cv::Vec3b&gt;(100, 100)</code> ：访问图像的 <code class="notranslate">(100,100)</code> 像素，返回一个 <code class="notranslate">cv::Vec3b</code> 对象，其中包含该像素的BGR值。</li>
 <li><code class="notranslate">image.at&lt;cv::Vec3b&gt;(100, 100) = cv::Vec3b(0, 255, 0)</code> ：将该像素的值修改为绿色。</li>
+</ul>
+<h2>拓展</h2>
+<blockquote>
+<p>关于我们会用到的编程思想：面向对象编程。</p>
+</blockquote>
+<h2>面向对象编程与C++中的面向对象</h2>
+<h2>1. 面向对象编程（OOP）的概述</h2>
+<h3>什么是面向对象编程？</h3>
+<p>面向对象编程（Object-Oriented Programming，简称OOP）是一种程序设计范式，它通过<strong>对象</strong>来组织程序结构。每个对象代表了程序中的一个实体，它将数据和操作这些数据的方法结合在一起，形成了“类”的概念。</p>
+<p>在面向对象编程中，程序是由对象和对象之间的交互组成的，核心思想是：</p>
+<ul>
+<li><strong>封装（Encapsulation）</strong>：将数据（属性）和操作数据的方法（函数）打包成一个单位，称为对象。通过封装，我们可以隐藏实现细节，仅暴露必要的接口。</li>
+<li><strong>继承（Inheritance）</strong>：通过继承，可以创建一个新类（子类）从现有的类（父类）派生，继承父类的属性和方法。继承促进了代码的重用性。</li>
+<li><strong>多态（Polymorphism）</strong>：允许通过一个接口来操作不同类型的对象，运行时决定实际执行的方法，增强了代码的灵活性和可扩展性。</li>
+<li><strong>抽象（Abstraction）</strong>：通过创建抽象类或接口，定义对象的公共特征，同时隐藏具体实现。抽象帮助我们简化问题，并专注于核心功能。</li>
+</ul>
+<h3>面向对象编程的优点：</h3>
+<ol>
+<li><strong>代码重用性</strong>：继承允许子类重用父类的代码，减少了重复代码。</li>
+<li><strong>可维护性</strong>：封装和抽象使得对象的内部实现与外部使用分离，增加了代码的可维护性。</li>
+<li><strong>灵活性</strong>：多态性使得代码更加灵活，可以通过相同的接口调用不同的实现。</li>
+</ol>
+<h2>2. C++中的面向对象编程</h2>
+<p>C++是一种支持面向对象编程的语言，它通过类和对象来实现OOP的概念。</p>
+<h3>2.1 类与对象</h3>
+<ul>
+<li>**类（Class）**是对象的蓝图或模板。它定义了对象的属性（数据成员）和行为（成员函数）。</li>
+<li>**对象（Object）**是类的实例，它拥有类定义的属性和方法。</li>
+</ul>
+<h4>类的定义和对象的创建：</h4>
+<div class="highlight highlight-source-c++"><pre class="notranslate">#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
+
+<span class="pl-c"><span class="pl-c">//</span> 定义一个类</span>
+<span class="pl-k">class</span> <span class="pl-en">Car</span> {
+<span class="pl-k">private:</span>
+    string brand;
+    <span class="pl-k">int</span> year;
+
+<span class="pl-k">public:</span>
+    <span class="pl-c"><span class="pl-c">//</span> 构造函数：用于创建对象时初始化属性</span>
+    <span class="pl-en">Car</span>(string b, <span class="pl-k">int</span> y) : brand(b), year(y) {}
+
+    <span class="pl-c"><span class="pl-c">//</span> 成员函数：获取品牌信息</span>
+    <span class="pl-k">void</span> <span class="pl-en">displayInfo</span>() {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Brand: <span class="pl-pds">"</span></span> &lt;&lt; brand &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>, Year: <span class="pl-pds">"</span></span> &lt;&lt; year &lt;&lt; endl;
+    }
+
+    <span class="pl-c"><span class="pl-c">//</span> 设定品牌</span>
+    <span class="pl-k">void</span> <span class="pl-en">setBrand</span>(string b) {
+        brand = b;
+    }
+
+    <span class="pl-c"><span class="pl-c">//</span> 获取品牌</span>
+    string <span class="pl-en">getBrand</span>() {
+        <span class="pl-k">return</span> brand;
+    }
+};
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>() {
+    <span class="pl-c"><span class="pl-c">//</span> 创建对象</span>
+    Car <span class="pl-smi">myCar</span>(<span class="pl-s"><span class="pl-pds">"</span>Toyota<span class="pl-pds">"</span></span>, <span class="pl-c1">2020</span>);
+    myCar.<span class="pl-c1">displayInfo</span>();
+
+    <span class="pl-c"><span class="pl-c">//</span> 修改品牌</span>
+    myCar.<span class="pl-c1">setBrand</span>(<span class="pl-s"><span class="pl-pds">"</span>Honda<span class="pl-pds">"</span></span>);
+    cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Updated Brand: <span class="pl-pds">"</span></span> &lt;&lt; myCar.<span class="pl-c1">getBrand</span>() &lt;&lt; endl;
+
+    <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+<h4>解释：</h4>
+<ul>
+<li><code class="notranslate">class Car</code> ：定义了一个 <code class="notranslate">Car</code> 类，类包含 <code class="notranslate">brand</code> 和 <code class="notranslate">year</code> 两个属性， <code class="notranslate">displayInfo</code> 、 <code class="notranslate">setBrand</code> 和 <code class="notranslate">getBrand</code> 是其成员函数。</li>
+<li><code class="notranslate">Car myCar("Toyota", 2020);</code> ：创建了一个 <code class="notranslate">Car</code> 类型的对象 <code class="notranslate">myCar</code> ，并通过构造函数初始化了 <code class="notranslate">brand</code> 和 <code class="notranslate">year</code> 属性。</li>
+</ul>
+<h3>2.2 封装</h3>
+<ul>
+<li>封装是面向对象的一个重要概念。通过封装，类可以将数据（成员变量）和操作数据的函数（成员函数）组合起来，同时隐藏不必要的细节，外部代码只能通过公开的接口访问对象的数据。</li>
+</ul>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-en">BankAccount</span> {
+<span class="pl-k">private:</span>
+    <span class="pl-k">double</span> balance;
+
+<span class="pl-k">public:</span>
+    <span class="pl-c"><span class="pl-c">//</span> 构造函数：初始化账户余额</span>
+    <span class="pl-en">BankAccount</span>(<span class="pl-k">double</span> initial_balance) : balance(initial_balance) {}
+
+    <span class="pl-c"><span class="pl-c">//</span> 存款操作</span>
+    <span class="pl-k">void</span> <span class="pl-en">deposit</span>(<span class="pl-k">double</span> amount) {
+        <span class="pl-k">if</span> (amount &gt; <span class="pl-c1">0</span>) {
+            balance += amount;
+        }
+    }
+
+    <span class="pl-c"><span class="pl-c">//</span> 取款操作</span>
+    <span class="pl-k">bool</span> <span class="pl-en">withdraw</span>(<span class="pl-k">double</span> amount) {
+        <span class="pl-k">if</span> (amount &gt; <span class="pl-c1">0</span> &amp;&amp; balance &gt;= amount) {
+            balance -= amount;
+            <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+
+    <span class="pl-c"><span class="pl-c">//</span> 获取账户余额</span>
+    <span class="pl-k">double</span> <span class="pl-en">getBalance</span>() {
+        <span class="pl-k">return</span> balance;
+    }
+};</pre></div>
+<h4>解释：</h4>
+<ul>
+<li><code class="notranslate">private</code> 访问修饰符：表示 <code class="notranslate">balance</code> 是私有成员，只能在类的内部访问。</li>
+<li><code class="notranslate">deposit</code> 、 <code class="notranslate">withdraw</code> 和 <code class="notranslate">getBalance</code> 是公开的成员函数，它们提供了对账户余额的操作接口。</li>
+</ul>
+<h3>2.3 继承</h3>
+<ul>
+<li>继承使得我们能够创建一个新的类（子类），它继承父类的属性和方法。子类可以扩展或修改父类的行为。</li>
+</ul>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-en">Vehicle</span> {
+<span class="pl-k">public:</span>
+    string brand;
+
+    <span class="pl-en">Vehicle</span>(string b) : brand(b) {}
+
+    <span class="pl-k">void</span> <span class="pl-en">honk</span>() {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Beep! Beep!<span class="pl-pds">"</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="pl-c"><span class="pl-c">//</span> 子类继承自Vehicle类</span>
+<span class="pl-k">class</span> <span class="pl-en">Car</span> : <span class="pl-k">public</span> <span class="pl-en">Vehicle</span> {
+<span class="pl-k">public:</span>
+    <span class="pl-k">int</span> doors;
+
+    <span class="pl-en">Car</span>(string b, <span class="pl-k">int</span> d) : Vehicle(b), doors(d) {}
+
+    <span class="pl-k">void</span> <span class="pl-en">displayInfo</span>() {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Brand: <span class="pl-pds">"</span></span> &lt;&lt; brand &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>, Doors: <span class="pl-pds">"</span></span> &lt;&lt; doors &lt;&lt; endl;
+    }
+};
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>() {
+    Car <span class="pl-smi">myCar</span>(<span class="pl-s"><span class="pl-pds">"</span>Toyota<span class="pl-pds">"</span></span>, <span class="pl-c1">4</span>);
+    myCar.<span class="pl-c1">honk</span>();
+    myCar.<span class="pl-c1">displayInfo</span>();
+
+    <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+<h4>解释：</h4>
+<ul>
+<li><code class="notranslate">class Vehicle</code> ：父类，包含了一个 <code class="notranslate">brand</code> 属性和一个 <code class="notranslate">honk</code> 方法。</li>
+<li><code class="notranslate">class Car : public Vehicle</code> ： <code class="notranslate">Car</code> 类继承自 <code class="notranslate">Vehicle</code> 类，继承了 <code class="notranslate">brand</code> 属性和 <code class="notranslate">honk</code> 方法，并增加了 <code class="notranslate">doors</code> 属性和 <code class="notranslate">displayInfo</code> 方法。</li>
+</ul>
+<h3>2.4 多态</h3>
+<ul>
+<li>多态是指同一接口可以作用于不同的对象，并产生不同的结果。在C++中，使用虚函数来实现多态。</li>
+</ul>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-en">Shape</span> {
+<span class="pl-k">public:</span>
+    <span class="pl-k">virtual</span> <span class="pl-k">void</span> <span class="pl-en">draw</span>() {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Drawing a shape<span class="pl-pds">"</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="pl-k">class</span> <span class="pl-en">Circle</span> : <span class="pl-k">public</span> <span class="pl-en">Shape</span> {
+<span class="pl-k">public:</span>
+    <span class="pl-k">void</span> <span class="pl-en">draw</span>() <span class="pl-k">override</span> {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Drawing a circle<span class="pl-pds">"</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="pl-k">class</span> <span class="pl-en">Square</span> : <span class="pl-k">public</span> <span class="pl-en">Shape</span> {
+<span class="pl-k">public:</span>
+    <span class="pl-k">void</span> <span class="pl-en">draw</span>() <span class="pl-k">override</span> {
+        cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Drawing a square<span class="pl-pds">"</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="pl-k">int</span> <span class="pl-en">main</span>() {
+    Shape* shape1 = <span class="pl-k">new</span> <span class="pl-c1">Circle</span>();
+    Shape* shape2 = <span class="pl-k">new</span> <span class="pl-c1">Square</span>();
+
+    shape1-&gt;<span class="pl-c1">draw</span>();  <span class="pl-c"><span class="pl-c">//</span> Drawing a circle</span>
+    shape2-&gt;<span class="pl-c1">draw</span>();  <span class="pl-c"><span class="pl-c">//</span> Drawing a square</span>
+
+    <span class="pl-k">delete</span> shape1;
+    <span class="pl-k">delete</span> shape2;
+
+    <span class="pl-k">return</span> <span class="pl-c1">0</span>;
+}</pre></div>
+<h4>解释：</h4>
+<ul>
+<li><code class="notranslate">virtual void draw()</code> ： <code class="notranslate">Shape</code> 类中的虚函数，允许子类重写它。</li>
+<li><code class="notranslate">override</code> 关键字：在子类中重写父类的虚函数，保证子类提供具体的实现。</li>
 </ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

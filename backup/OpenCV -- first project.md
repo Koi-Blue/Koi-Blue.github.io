@@ -78,3 +78,4 @@ cv::waitKey(0);
 - 编译之后得到可执行文件，在命令行窗口运行的时候需要``` ./可执行文件名称 图片路径 。
 - 亦可将路径写入cpp文件中，直接读取文件路径。
 - : )
+<!-- ##{"script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>"}## -->

@@ -6,6 +6,6 @@
     "themeMode":"manual",
     "dayTheme":"dark",
     "nightTheme":"dark-blue",
-    "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>"
-
+    "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>",
+    "script":"<script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>"
 }

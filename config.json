@@ -5,5 +5,7 @@
     "GMEEK_VERSION":"last",
     "themeMode":"manual",
     "dayTheme":"dark",
-    "nightTheme":"dark-blue"
+    "nightTheme":"dark-blue",
+    "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>"
+
 }

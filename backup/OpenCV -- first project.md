@@ -79,3 +79,5 @@ cv::waitKey(0);
 - 亦可将路径写入cpp文件中，直接读取文件路径。
 - : )
 <!-- ##{"script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>"}## -->
+<!-- ##{"script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script>"}## -->
+

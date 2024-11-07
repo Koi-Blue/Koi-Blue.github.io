@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Thu, 07 Nov 2024 05:00:06 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>适用的OpenCV学习路线</title><link>https://Koi-Blue.github.io/post/shi-yong-de-OpenCV-xue-xi-lu-xian.html</link><description># 计算机视觉学习路线&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Thu, 07 Nov 2024 05:36:04 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>OpenCV第二阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-er-jie-duan.html</link><description># 第二阶段：OpenCV 基础&#13;
+&#13;
+## 1. OpenCV 安装与配置&#13;
+&#13;
+### 目标：&#13;
+- 学会在Linux上安装和配置OpenCV。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/OpenCV-di-er-jie-duan.html</guid><pubDate>Thu, 07 Nov 2024 05:33:30 +0000</pubDate></item><item><title>适用的OpenCV学习路线</title><link>https://Koi-Blue.github.io/post/shi-yong-de-OpenCV-xue-xi-lu-xian.html</link><description># 计算机视觉学习路线&#13;
 &#13;
 ## 第一阶段：基础知识准备&#13;
 &#13;

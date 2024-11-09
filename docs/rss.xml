@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Thu, 07 Nov 2024 05:36:04 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>OpenCV第二阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-er-jie-duan.html</link><description># 第二阶段：OpenCV 基础&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Sat, 09 Nov 2024 13:19:24 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>OpenCV第三阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan.html</link><description># 第三阶段：中级图像处理&#13;
+&#13;
+## 1. 图像滤波&#13;
+&#13;
+### 目标：&#13;
+- 学会使用 ` OpenCV ` 进行图像滤波。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan.html</guid><pubDate>Sat, 09 Nov 2024 13:18:57 +0000</pubDate></item><item><title>OpenCV第二阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-er-jie-duan.html</link><description># 第二阶段：OpenCV 基础&#13;
 &#13;
 ## 1. OpenCV 安装与配置&#13;
 &#13;

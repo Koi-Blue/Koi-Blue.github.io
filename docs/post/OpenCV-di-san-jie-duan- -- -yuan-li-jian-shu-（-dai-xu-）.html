@@ -10,7 +10,7 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# 第三阶段：中级图像处理 -- 原理简述（待续）
+<meta name="description" content="# 第三阶段：中级图像处理
 
 ## 1. 图像滤波
 
@@ -19,7 +19,7 @@
 #### 1.1 平滑滤波
 平滑滤波是一种常见的图像处理技术，用于去除噪声并改善图像质量。">
 <meta property="og:title" content="OpenCV第三阶段 -- 原理简述（待续）">
-<meta property="og:description" content="# 第三阶段：中级图像处理 -- 原理简述（待续）
+<meta property="og:description" content="# 第三阶段：中级图像处理
 
 ## 1. 图像滤波
 
@@ -87,7 +87,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>第三阶段：中级图像处理 -- 原理简述（待续）</h1>
+<div class="markdown-body" id="postBody"><h1>第三阶段：中级图像处理</h1>
 <h2>1. 图像滤波</h2>
 <h3>数学原理及意义</h3>
 <h4>1.1 平滑滤波</h4>
@@ -99,10 +99,8 @@ g(x, y) = \frac{1}{m \cdot n} \sum_{i=-\frac{m}{2}}^{\frac{m}{2}} \sum_{j=-\frac
 $$</p>
 <p>其中：</p>
 <ul>
-<li>
-$( f(x, y) )$ 是输入图像。</li>
-<li>
-$( g(x, y) )$ 是输出图像。</li>
+<li>( f(x, y) ) 是输入图像。</li>
+<li>( g(x, y) ) 是输出图像。</li>
 </ul>
 <p><strong>数学意义</strong>：均值滤波通过平滑像素值减弱图像中的高频分量（噪声），但会模糊边缘。</p>
 <h5>高斯滤波（Gaussian Filtering）</h5>
@@ -147,7 +145,7 @@ $$</p>
 <p>$$
 G = \sqrt{G_x^2 + G_y^2}
 $$</p>
-<p>其中 ( G_x ) 和 ( G_y ) 分别是水平和垂直方向的梯度。</p>
+<p>其中 $( G_x )$ 和 $( G_y )$ 分别是水平和垂直方向的梯度。</p>
 <p><strong>数学意义</strong>：通过计算灰度梯度的变化率，Sobel 算子可以定位边缘的位置。</p>
 <h5>Canny 边缘检测</h5>
 <p>Canny 算法是更精确的边缘检测方法，主要步骤包括：</p>

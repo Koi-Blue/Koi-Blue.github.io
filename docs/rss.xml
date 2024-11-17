@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Sun, 17 Nov 2024 11:21:01 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>第三阶段：中级图像处理 -- 原理简述（待续）</title><link>https://Koi-Blue.github.io/post/di-san-jie-duan-%EF%BC%9A-zhong-ji-tu-xiang-chu-li-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</link><description># 第三阶段：中级图像处理 -- 原理简述（待续）&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Sun, 17 Nov 2024 11:22:09 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>OpenCV第三阶段 -- 原理简述（待续）</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</link><description># 第三阶段：中级图像处理 -- 原理简述（待续）&#13;
 &#13;
 ## 1. 图像滤波&#13;
 &#13;
 ### 数学原理及意义&#13;
 &#13;
 #### 1.1 平滑滤波&#13;
-平滑滤波是一种常见的图像处理技术，用于去除噪声并改善图像质量。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/di-san-jie-duan-%EF%BC%9A-zhong-ji-tu-xiang-chu-li-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</guid><pubDate>Sun, 17 Nov 2024 11:20:39 +0000</pubDate></item><item><title>OpenCV第三阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan.html</link><description># 第三阶段：中级图像处理&#13;
+平滑滤波是一种常见的图像处理技术，用于去除噪声并改善图像质量。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</guid><pubDate>Sun, 17 Nov 2024 11:20:39 +0000</pubDate></item><item><title>OpenCV第三阶段</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan.html</link><description># 第三阶段：中级图像处理&#13;
 &#13;
 ## 1. 图像滤波&#13;
 &#13;

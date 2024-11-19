@@ -181,6 +181,62 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ol>
 <hr>
 <h1>第二章</h1>
+<h2>2.3 关系的完整性</h2>
+<h3>2.3.1 实体完整性</h3>
+<p><strong>定义</strong>：实体完整性确保表中的每一行都是唯一的，即主键值必须唯一且不能为空。<br>
+<strong>例子</strong>：<br>
+假设有一个 <strong>students</strong> 表，其结构如下：</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">students</span> (
+    student_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,  <span class="pl-c"><span class="pl-c">--</span> 学生ID，主键</span>
+    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>,  <span class="pl-c"><span class="pl-c">--</span> 学生姓名</span>
+    age <span class="pl-k">INT</span>,                     <span class="pl-c"><span class="pl-c">--</span> 年龄</span>
+    gender <span class="pl-k">CHAR</span>(<span class="pl-c1">1</span>)               <span class="pl-c"><span class="pl-c">--</span> 性别</span>
+);</pre></div>
+<p>在这个表中，<code class="notranslate">student_id</code> 是主键，必须满足以下条件：</p>
+<ul>
+<li>每个 <code class="notranslate">student_id</code> 必须是唯一的。</li>
+<li><code class="notranslate">student_id</code> 不能为 <code class="notranslate">NULL</code> 。</li>
+</ul>
+<h3>2.3.2 参照完整性</h3>
+<p><strong>定义</strong>：参照完整性确保两个表之间的关系是正确的，即外键值必须引用主键表中存在的值。<br>
+<strong>例子</strong>：<br>
+假设有两个表 <code class="notranslate">departments</code> 和 <code class="notranslate">employees</code>，其中 <code class="notranslate">employees</code> 表中的 <code class="notranslate">department_id</code> 是一个外键，引用 <code class="notranslate">departments</code> 表的 <code class="notranslate">department_id</code>。</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 创建 departments 表</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">departments</span> (
+    department_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,  <span class="pl-c"><span class="pl-c">--</span> 部门ID，主键</span>
+    department_name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>  <span class="pl-c"><span class="pl-c">--</span> 部门名称</span>
+);
+
+<span class="pl-c"><span class="pl-c">--</span> 创建 employees 表</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">employees</span> (
+    employee_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,    <span class="pl-c"><span class="pl-c">--</span> 员工ID，主键</span>
+    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>,     <span class="pl-c"><span class="pl-c">--</span> 员工姓名</span>
+    hire_date <span class="pl-k">DATE</span>,                 <span class="pl-c"><span class="pl-c">--</span> 入职日期</span>
+    salary <span class="pl-k">DECIMAL</span>(<span class="pl-c1">10</span>, <span class="pl-c1">2</span>),          <span class="pl-c"><span class="pl-c">--</span> 薪资</span>
+    department_id <span class="pl-k">INT</span>,              <span class="pl-c"><span class="pl-c">--</span> 部门ID，外键</span>
+    <span class="pl-k">FOREIGN KEY</span> (department_id) <span class="pl-k">REFERENCES</span> departments(department_id)
+);</pre></div>
+<p>在这个例子中，参照完整性规则确保：</p>
+<ul>
+<li><code class="notranslate">employees</code> 表中的 <code class="notranslate">department_id</code> 必须引用 <code class="notranslate">departments</code> 表中存在的 <code class="notranslate">department_id</code>。</li>
+<li>如果尝试插入一个不存在于 <code class="notranslate">departments</code> 表中的 <code class="notranslate">department_id</code>，将会引发错误。</li>
+</ul>
+<h3>2.3.3 用户定义的完整性</h3>
+<p><strong>定义</strong>：用户定义的完整性是指用户根据业务需求定义的特定规则和约束，这些规则可能不在标准的完整性类型范围内。<br>
+<strong>例子</strong>：<br>
+假设有一个 <code class="notranslate">orders</code> 表，需要确保订单金额大于0，并且订单状态必须是 <code class="notranslate">'Pending'</code> , <code class="notranslate">'Shipped'</code> , 或 <code class="notranslate">'Delivered'</code> 。</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">orders</span> (
+    order_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,       <span class="pl-c"><span class="pl-c">--</span> 订单ID，主键</span>
+    customer_id <span class="pl-k">INT</span>,                <span class="pl-c"><span class="pl-c">--</span> 客户ID</span>
+    order_amount <span class="pl-k">DECIMAL</span>(<span class="pl-c1">10</span>, <span class="pl-c1">2</span>) <span class="pl-k">CHECK</span> (order_amount <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>),  <span class="pl-c"><span class="pl-c">--</span> 订单金额，必须大于0</span>
+    order_status <span class="pl-k">VARCHAR</span>(<span class="pl-c1">20</span>) <span class="pl-k">CHECK</span> (order_status <span class="pl-k">IN</span> (<span class="pl-s"><span class="pl-pds">'</span>Pending<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Shipped<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Delivered<span class="pl-pds">'</span></span>)),  <span class="pl-c"><span class="pl-c">--</span> 订单状态</span>
+    order_date <span class="pl-k">DATE</span>                 <span class="pl-c"><span class="pl-c">--</span> 订单日期</span>
+);</pre></div>
+<p>在这个表中，用户定义的完整性规则包括：</p>
+<ul>
+<li><code class="notranslate">order_amount</code> 列必须大于0。</li>
+<li><code class="notranslate">order_status</code> 列只能是 <code class="notranslate">'Pending'</code> , <code class="notranslate">'Shipped'</code> , 或 <code class="notranslate">'Delivered'</code> 。</li>
+</ul>
 <h2>2.4 关系代数（写出代数公式，明白是什么意思 或反）</h2>
 <ul>
 <li>关系代数是抽象查询语言，他用对关系的运算来查询表达；</li>

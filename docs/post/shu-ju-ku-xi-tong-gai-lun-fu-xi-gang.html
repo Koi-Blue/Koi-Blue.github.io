@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark-blue" data-light-theme="dark" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/182211636?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="> 单选题10题10分
+> 判断题10题10分
+> 填空题10空10分（有难题，不会可空）
+> 简答题2个 10/20 概念＋举例约6行
+> 应用题3个题多问，一题中每问5或6分
+> 三、六和七章占比较大
+
+---
+# 第一章
+
+## 1.2.7 关系模型与其他区别
+$\qquad$ 关系模型建立在严格的**数学概念**的基础上，从用户的观点看，**关系模型由一组关系组成**；每个关系的数据结构是一张规范化的二维表；
+**关系：** 一个关系对应通常说的一张表；
+**关系模式：** 对关系的描述，一般表示为
+
+-	关系名 （属性1， 属性2， ...，属性n）
+
+**例如**
+
+-	学生（学号， 姓名， 年龄， 性别， 系名， 年级）
+
+**关系模型**	
+
+1. 要求关系必须是规范化的，关系必须满足一定的规范条件，关系的每一个分量必须是一个不可分的数据项；
+2. 关系模型的数据操纵主要包括查询、插入、删除和更新数据；这些操作必须满足关系的完整性约束条件；
+3. 关系模型中的数据操作是集合操作，操作对象和操作结果都是关系；
+4. 关系模型把存取路径向用户隐蔽起来，用户只要指出“干什么”或“找什么”， 不必详细说明“怎么干”或“怎么找”。">
+<meta property="og:title" content="数据库系统概论复习纲">
+<meta property="og:description" content="> 单选题10题10分
+> 判断题10题10分
+> 填空题10空10分（有难题，不会可空）
+> 简答题2个 10/20 概念＋举例约6行
+> 应用题3个题多问，一题中每问5或6分
+> 三、六和七章占比较大
+
+---
+# 第一章
+
+## 1.2.7 关系模型与其他区别
+$\qquad$ 关系模型建立在严格的**数学概念**的基础上，从用户的观点看，**关系模型由一组关系组成**；每个关系的数据结构是一张规范化的二维表；
+**关系：** 一个关系对应通常说的一张表；
+**关系模式：** 对关系的描述，一般表示为
+
+-	关系名 （属性1， 属性2， ...，属性n）
+
+**例如**
+
+-	学生（学号， 姓名， 年龄， 性别， 系名， 年级）
+
+**关系模型**	
+
+1. 要求关系必须是规范化的，关系必须满足一定的规范条件，关系的每一个分量必须是一个不可分的数据项；
+2. 关系模型的数据操纵主要包括查询、插入、删除和更新数据；这些操作必须满足关系的完整性约束条件；
+3. 关系模型中的数据操作是集合操作，操作对象和操作结果都是关系；
+4. 关系模型把存取路径向用户隐蔽起来，用户只要指出“干什么”或“找什么”， 不必详细说明“怎么干”或“怎么找”。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-fu-xi-gang.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/182211636?v=4">
+<title>数据库系统概论复习纲</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">数据库系统概论复习纲</h1>
+<div class="title-right">
+    <a href="https://Koi-Blue.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Koi-Blue/Koi-Blue.github.io/issues/12" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><blockquote>
+<p>单选题10题10分<br>
+判断题10题10分<br>
+填空题10空10分（有难题，不会可空）<br>
+简答题2个 10/20 概念＋举例约6行<br>
+应用题3个题多问，一题中每问5或6分<br>
+三、六和七章占比较大</p>
+</blockquote>
+<hr>
+<h1>第一章</h1>
+<h2>1.2.7 关系模型与其他区别</h2>
+<p>$\qquad$ 关系模型建立在严格的<strong>数学概念</strong>的基础上，从用户的观点看，<strong>关系模型由一组关系组成</strong>；每个关系的数据结构是一张规范化的二维表；<br>
+<strong>关系：</strong> 一个关系对应通常说的一张表；<br>
+<strong>关系模式：</strong> 对关系的描述，一般表示为</p>
+<ul>
+<li>关系名 （属性1， 属性2， ...，属性n）</li>
+</ul>
+<p><strong>例如</strong></p>
+<ul>
+<li>学生（学号， 姓名， 年龄， 性别， 系名， 年级）</li>
+</ul>
+<p><strong>关系模型</strong></p>
+<ol>
+<li>要求关系必须是规范化的，关系必须满足一定的规范条件，关系的每一个分量必须是一个不可分的数据项；</li>
+<li>关系模型的数据操纵主要包括查询、插入、删除和更新数据；这些操作必须满足关系的完整性约束条件；</li>
+<li>关系模型中的数据操作是集合操作，操作对象和操作结果都是关系；</li>
+<li>关系模型把存取路径向用户隐蔽起来，用户只要指出“干什么”或“找什么”， 不必详细说明“怎么干”或“怎么找”。</li>
+</ol>
+<p><strong>关系模型优缺点：</strong></p>
+<ol>
+<li>关系模型建立在严格的数学概念基础上；</li>
+<li>关系模型的概念单一；</li>
+<li>关系模型的存取路径对用户透明；</li>
+<li>存取路径对用户是隐蔽的，查询你效率往往不如格式化数据模型</li>
+</ol>
+<h2>1.3.2数据库的三级模式结构（p28）</h2>
+<ul>
+<li>由模式、外模式、内模式三级构成</li>
+</ul>
+<ol>
+<li>模式也称逻辑模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图；</li>
+<li>外模式也称子模式或用户模式，它是数据库用户能够看见和使用的局部数据的逻辑结构和特征的描述，是数据库用户的数据视图，是与某一应用有关的数据的逻辑表示；</li>
+<li>内模式也称存储模式，一个数据库只有一个内模式，他是数据物理结构和存储方式的描述，是数据在数据库内部的组织方式。</li>
+</ol>
+<hr>
+<h1>第二章</h1>
+<h2>2.4 关系代数（写出代数公式，明白是什么意思 或反）</h2>
+<ul>
+<li>关系代数是抽象查询语言，他用对关系的运算来查询表达；</li>
+<li>关系代数的运算按运算符的不同可分为传统的集合运算和专门的关系运算两类</li>
+</ul>
+<hr>
+<h1>第三章 SQL</h1>
+<p><strong>对于多个表需要了解</strong></p>
+<ul>
+<li>创建一个表，确定数据类型、表头（字段名）、数据类型长度；</li>
+<li>多表查询： 连接查询或嵌套查询，随意；</li>
+<li>视图检索；</li>
+<li>修改表，检索表；</li>
+<li>视图消解发（上网搜）定义，特点，步骤；</li>
+</ul>
+<p><strong>实现</strong></p>
+<h3>1. 创建表</h3>
+<p>创建两个表：<code class="notranslate">students</code> 和 <code class="notranslate">courses</code> 。<br>
+<strong><code class="notranslate">students</code> 表</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 创建 students 表</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">students</span> (
+    student_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,          <span class="pl-c"><span class="pl-c">--</span> 学生ID，主键</span>
+    name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>,         <span class="pl-c"><span class="pl-c">--</span> 学生姓名</span>
+    age <span class="pl-k">INT</span>,                            <span class="pl-c"><span class="pl-c">--</span> 年龄</span>
+    gender <span class="pl-k">CHAR</span>(<span class="pl-c1">1</span>),                     <span class="pl-c"><span class="pl-c">--</span> 性别，M 或 F</span>
+    major <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>)                   <span class="pl-c"><span class="pl-c">--</span> 专业</span>
+);</pre></div>
+<p><strong><code class="notranslate">courses</code> 表</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 创建 courses 表</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">courses</span> (
+    course_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,          <span class="pl-c"><span class="pl-c">--</span> 课程ID，主键</span>
+    course_name <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>) <span class="pl-k">NOT NULL</span>,  <span class="pl-c"><span class="pl-c">--</span> 课程名称</span>
+    credits <span class="pl-k">INT</span>,                        <span class="pl-c"><span class="pl-c">--</span> 学分</span>
+    department <span class="pl-k">VARCHAR</span>(<span class="pl-c1">50</span>)              <span class="pl-c"><span class="pl-c">--</span> 开课院系</span>
+);</pre></div>
+<h3>2. 多表查询</h3>
+<p>创建一个关联表 <code class="notranslate">enrollments</code> ，记录学生选课的情况。<br>
+<strong><code class="notranslate">enrollments</code> 表</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 创建 enrollments 表</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">TABLE</span> <span class="pl-en">enrollments</span> (
+    enrollment_id <span class="pl-k">INT</span> <span class="pl-k">PRIMARY KEY</span>,      <span class="pl-c"><span class="pl-c">--</span> 报名ID，主键</span>
+    student_id <span class="pl-k">INT</span>,                     <span class="pl-c"><span class="pl-c">--</span> 学生ID，外键</span>
+    course_id <span class="pl-k">INT</span>,                      <span class="pl-c"><span class="pl-c">--</span> 课程ID，外键</span>
+    grade <span class="pl-k">DECIMAL</span>(<span class="pl-c1">5</span>, <span class="pl-c1">2</span>),                <span class="pl-c"><span class="pl-c">--</span> 成绩</span>
+    <span class="pl-k">FOREIGN KEY</span> (student_id) <span class="pl-k">REFERENCES</span> students(student_id),
+    <span class="pl-k">FOREIGN KEY</span> (course_id) <span class="pl-k">REFERENCES</span> courses(course_id)
+);</pre></div>
+<p><strong>连接查询</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 查询所有学生的选课情况</span>
+<span class="pl-k">SELECT</span> 
+    <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span>,
+    <span class="pl-c1">s</span>.<span class="pl-c1">name</span>,
+    <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>,
+    <span class="pl-c1">c</span>.<span class="pl-c1">course_name</span>,
+    <span class="pl-c1">e</span>.<span class="pl-c1">grade</span>
+<span class="pl-k">FROM</span> 
+    students s
+<span class="pl-k">JOIN</span> 
+    enrollments e <span class="pl-k">ON</span> <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span> <span class="pl-k">=</span> <span class="pl-c1">e</span>.<span class="pl-c1">student_id</span>
+<span class="pl-k">JOIN</span> 
+    courses c <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">course_id</span> <span class="pl-k">=</span> <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>;</pre></div>
+<p><strong>嵌套查询</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 查询所有选修了“计算机科学”课程的学生姓名</span>
+<span class="pl-k">SELECT</span> 
+    <span class="pl-c1">s</span>.<span class="pl-c1">name</span>
+<span class="pl-k">FROM</span> 
+    students s
+<span class="pl-k">WHERE</span> 
+    <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span> <span class="pl-k">IN</span> (
+        <span class="pl-k">SELECT</span> 
+            <span class="pl-c1">e</span>.<span class="pl-c1">student_id</span>
+        <span class="pl-k">FROM</span> 
+            enrollments e
+        <span class="pl-k">JOIN</span> 
+            courses c <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">course_id</span> <span class="pl-k">=</span> <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>
+        <span class="pl-k">WHERE</span> 
+            <span class="pl-c1">c</span>.<span class="pl-c1">course_name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>计算机科学<span class="pl-pds">'</span></span>
+    );</pre></div>
+<h3>3. 视图检索</h3>
+<p>创建一个视图来简化复杂的查询。</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 创建视图 student_courses</span>
+<span class="pl-k">CREATE</span> <span class="pl-k">VIEW</span> <span class="pl-en">student_courses</span> <span class="pl-k">AS</span>
+<span class="pl-k">SELECT</span> 
+    <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span>,
+    <span class="pl-c1">s</span>.<span class="pl-c1">name</span>,
+    <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>,
+    <span class="pl-c1">c</span>.<span class="pl-c1">course_name</span>,
+    <span class="pl-c1">e</span>.<span class="pl-c1">grade</span>
+<span class="pl-k">FROM</span> 
+    students s
+<span class="pl-k">JOIN</span> 
+    enrollments e <span class="pl-k">ON</span> <span class="pl-c1">s</span>.<span class="pl-c1">student_id</span> <span class="pl-k">=</span> <span class="pl-c1">e</span>.<span class="pl-c1">student_id</span>
+<span class="pl-k">JOIN</span> 
+    courses c <span class="pl-k">ON</span> <span class="pl-c1">e</span>.<span class="pl-c1">course_id</span> <span class="pl-k">=</span> <span class="pl-c1">c</span>.<span class="pl-c1">course_id</span>;
+
+<span class="pl-c"><span class="pl-c">--</span> 使用视图查询</span>
+<span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> student_courses <span class="pl-k">WHERE</span> grade <span class="pl-k">&gt;</span> <span class="pl-c1">80</span>;</pre></div>
+<h3>4. 修改表、检索表</h3>
+<p><strong>修改表</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 添加一个新的字段到 students 表</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> students ADD COLUMN email <span class="pl-k">VARCHAR</span>(<span class="pl-c1">100</span>);
+
+<span class="pl-c"><span class="pl-c">--</span> 修改字段的数据类型</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> students MODIFY COLUMN age <span class="pl-k">SMALLINT</span>;
+
+<span class="pl-c"><span class="pl-c">--</span> 删除一个字段</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> students DROP COLUMN email;</pre></div>
+<p><strong>检索表</strong></p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-c"><span class="pl-c">--</span> 查询 students 表中的所有记录</span>
+<span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> students;
+
+<span class="pl-c"><span class="pl-c">--</span> 查询 courses 表中的所有记录</span>
+<span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> courses;</pre></div>
+<h3>视图消解法</h3>
+<p><strong>定义</strong></p>
+<p>视图消解法<code class="notranslate">（View Resolution）</code>是<strong>将视图查询转换为对基表的查询</strong>的过程。这种方法可以<strong>提高查询性能</strong>，因为直接对基表进行操作通常比通过视图更高效。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li><strong>提高性能</strong>：直接操作基表避免了视图的额外开销。</li>
+<li><strong>灵活性</strong>：可以在基表上进行更复杂的优化。</li>
+<li><strong>透明性</strong>：对用户来说，视图仍然是一个抽象层，但底层的查询已经被优化。</li>
+</ul>
+<p><strong>步骤</strong></p>
+<ul>
+<li><strong>分析视图定义</strong>：查看视图的定义，理解视图是如何从基表中提取数据的。</li>
+<li><strong>提取基表查询</strong>：将视图定义中的查询逻辑提取出来，形成对基表的查询。</li>
+<li><strong>优化查询</strong>：根据具体的需求和数据结构，优化提取出来的查询。</li>
+<li><strong>测试和验证</strong>：确保优化后的查询结果与视图查询结果一致。</li>
+</ul>
+<hr>
+<h1>第四章</h1>
+<p><strong>自主存取控制和强制存取控制的区别</strong><br>
+（哪一个是对表本身的控制，等等等）<br>
+$\qquad$ 自主存取控制能够通过授权机制有效地控制对敏感数据的存取。但是由于用户对于数据的存取权限是“自主”的，用户可以自由地决定将数据的存取权限授予何人，以及决定是否也将“授权”的权限授予别人。</p>
+<hr>
+<h1>第五章</h1>
+<p><strong>数据库完整性</strong>（实体完整性、参照完整性、用户自定义完整性）<strong>概念</strong> 和 <strong>程序中创建表或视图时完整性约束</strong>怎么写</p>
+<p>5.7 触发器（不是机器）</p>
+<hr>
+<h1>第六章 （20分）</h1>
+<p>$\qquad$ 一范式，二范式（2NF），三范式（3NF），BC范式定义（定义，查清依赖，完全依赖还是部份依赖； 查清修改时会发生什么事）<br>
+$\qquad$ 比如二范式拆分到BC范式，先阐明为什么满足二范式，写删除修改，更新异常会发生什么，然后写BC范式（即传递依赖）（PPT分析）。</p>
+<hr>
+<h1>第七章</h1>
+<p>E-R图：<br>
+$\qquad$ 根据一句话的要求条件建E-R图（搞清楚哪里是“三角，矩形，椭圆，菱形”）<br>
+$\qquad$ 画好后转换写成数个关系模式（会设计主码，外码；学会表嵌套）</p>
+<hr>
+<h1>第八章 （无大题）</h1>
+<h2>8.1.1 定义</h2>
+<h2>8.1.2 定义</h2>
+<hr>
+<h1>第九章 （没有）</h1>
+<p>查询优化融入第三章</p>
+<hr>
+<h1>第十章</h1>
+<h2>10.1 事务（概念）</h2>
+<p>$\qquad$ <strong>事务</strong>是用户定义的一个数据库操作序列，这些操作<strong>要么全做</strong>，<strong>要么全不做</strong>，是一个不可分割的工作单位。例如在关系数据库中，一个事务可以是一条 SQL 语句、一组 SQL 语句或整个程序。</p>
+<h2>10.4 日志文件 （操作）</h2>
+<p>$\qquad$</p>
+<h2>10.5 恢复策略（了解）</h2>
+<p>$\qquad$</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Koi-Blue.github.io">Koi_Blue</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/31/2024"!=""){
+    var startSite=new Date("07/31/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Koi-Blue/Koi-Blue.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script><script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</html>

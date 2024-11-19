@@ -10,7 +10,7 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# Java复习纲要
+<meta name="description" content="# Java复习纲
 
 ---
 
@@ -19,7 +19,7 @@
 ### Java的特点
 - **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。">
 <meta property="og:title" content="Java 复习纲">
-<meta property="og:description" content="# Java复习纲要
+<meta property="og:description" content="# Java复习纲
 
 ---
 
@@ -97,7 +97,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>Java复习纲要</h1>
+<div class="markdown-body" id="postBody"><h1>Java复习纲</h1>
 <hr>
 <h2>第一章</h2>
 <h3>Java的特点</h3>
@@ -128,24 +128,83 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>1.4 Java数组</h3>
 <ul>
-<li><strong>创建、声明、初始化、引用</strong>：
+<li>
+<p><strong>创建、声明、初始化、引用</strong>：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = {<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>}; <span class="pl-c">// 静态初始化</span>
+<span class="pl-smi">String</span>[] <span class="pl-s1">names</span> = {<span class="pl-s">"Alice"</span>, <span class="pl-s">"Bob"</span>, <span class="pl-s">"Charlie"</span>};
+
 <span class="pl-smi">int</span>[] <span class="pl-s1">arr2</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">5</span>]; <span class="pl-c">// 动态初始化</span>
-<span class="pl-smi">int</span>[][] <span class="pl-s1">arr3</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">5</span>][<span class="pl-c1">5</span>]</pre></div>
+<span class="pl-smi">int</span>[][] <span class="pl-s1">arr3</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">5</span>][<span class="pl-c1">5</span>]
+
+<span class="pl-c">// 数据类型[][] 数组名 = new 数据类型[行数][];</span>
+<span class="pl-smi">int</span>[][] <span class="pl-s1">jaggedArray</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">2</span>][];
+
+<span class="pl-c">// 数组名[行号] = new 数据类型[列数];</span>
+<span class="pl-s1">jaggedArray</span>[<span class="pl-c1">0</span>] = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">3</span>];
+<span class="pl-s1">jaggedArray</span>[<span class="pl-c1">1</span>] = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">2</span>];</pre></div>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>初始化方式</th>
+<th>适用场景</th>
+<th>示例代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静态初始化</td>
+<td>已知具体值</td>
+<td><code class="notranslate">int[] arr = {1, 2, 3};</code></td>
+</tr>
+<tr>
+<td>动态初始化</td>
+<td>未知具体值，但已知长度</td>
+<td><code class="notranslate">int[] arr = new int[5];</code></td>
+</tr>
+<tr>
+<td>部分静态初始化</td>
+<td>动态与静态结合</td>
+<td><code class="notranslate">int[] arr = new int[]{1, 2, 3};</code></td>
+</tr>
+<tr>
+<td>匿名数组初始化</td>
+<td>临时使用数组或传参</td>
+<td><code class="notranslate">printArray(new int[]{1, 2, 3});</code></td>
+</tr>
+<tr>
+<td>静态二维数组初始化</td>
+<td>初始化完整矩阵</td>
+<td><code class="notranslate">int[][] matrix = {{1, 2}, {3, 4}};</code></td>
+</tr>
+<tr>
+<td>动态二维数组初始化</td>
+<td>创建默认矩阵，元素为默认值</td>
+<td><code class="notranslate">int[][] matrix = new int[2][3];</code></td>
+</tr>
+<tr>
+<td>不规则二维数组初始化</td>
+<td>初始化不规则的矩阵（行长度不同）</td>
+<td><code class="notranslate">int[][] jaggedArray = new int[2][];</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
 </li>
-<li>遍历过程中发生的事情：
+<li>
+<p>遍历过程中发生的事情：</p>
 <ul>
 <li>按索引访问元素。</li>
 <li>循环中对元素进行操作可能会改变数组的值。</li>
 </ul>
 </li>
-<li>关键字：
+<li>
+<p>关键字：</p>
 <ul>
 <li><strong><code class="notranslate">break</code></strong> ：跳出当前循环。</li>
 <li><strong><code class="notranslate">continue</code></strong> ：跳过当前迭代，进入下一次循环。</li>
 </ul>
 </li>
-<li>多维数组：
+<li>
+<p>多维数组：</p>
 <ul>
 <li>每一行的元素个数可以不同。</li>
 </ul>

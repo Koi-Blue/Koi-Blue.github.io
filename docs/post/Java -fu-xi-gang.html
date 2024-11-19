@@ -12,12 +12,16 @@
     </script>
 <meta name="description" content="# Java复习纲要
 
+---
+
 ## 第一章
 
 ### Java的特点
 - **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。">
 <meta property="og:title" content="Java 复习纲">
 <meta property="og:description" content="# Java复习纲要
+
+---
 
 ## 第一章
 
@@ -94,6 +98,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><h1>Java复习纲要</h1>
+<hr>
 <h2>第一章</h2>
 <h3>Java的特点</h3>
 <ul>
@@ -136,8 +141,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>关键字：
 <ul>
-<li><code class="notranslate">break</code> ：跳出当前循环。</li>
-<li><code class="notranslate">continue</code> ：跳过当前迭代，进入下一次循环。</li>
+<li><strong><code class="notranslate">break</code></strong> ：跳出当前循环。</li>
+<li><strong><code class="notranslate">continue</code></strong> ：跳过当前迭代，进入下一次循环。</li>
 </ul>
 </li>
 <li>多维数组：
@@ -157,13 +162,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 }</pre></div>
 </li>
 </ul>
+<hr>
 <h2>第二章</h2>
 <h3>2.2  类或对象</h3>
 <ul>
 <li>类的定义：
 <ul>
 <li>属性和方法。</li>
-<li>修饰符（public，private，protected）</li>
+<li>修饰符（ <code class="notranslate">public</code> ， <code class="notranslate">private</code> ， <code class="notranslate">protected</code> ）</li>
 </ul>
 </li>
 <li>对象：
@@ -175,17 +181,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h4>2.2.6 类的访问控制</h4>
 <ul>
-<li>public：可被所有类访问。</li>
-<li>protected：仅在桐宝子类中可访问。</li>
-<li>private：仅在本类中可访问。</li>
-<li>默认（包访问权限）：仅在同包中可访问。</li>
+<li><strong><code class="notranslate">public</code></strong> ：可被所有类访问。</li>
+<li><strong><code class="notranslate">protected</code></strong> ：仅在桐宝子类中可访问。</li>
+<li><strong><code class="notranslate">private</code></strong> ：仅在本类中可访问。</li>
+<li><strong>默认</strong>（包访问权限）：仅在同包中可访问。</li>
 </ul>
 <h3>2.3 对象初始化和回收</h3>
 <ul>
-<li>构造方法：
+<li><strong>构造方法</strong>：
 <ul>
 <li>无参和有参构造方法。</li>
-<li>特点：与类名相同，无返回值。</li>
+<li><strong>特点</strong>：与类名相同，无返回值。</li>
 </ul>
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyClass</span> {
        <span class="pl-smi">int</span> <span class="pl-s1">value</span>;
@@ -197,20 +203,20 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
        }
 }</pre></div>
 <ul>
-<li>Java 内存回收机制：
+<li><strong>Java 内存回收机制</strong>：
 <ul>
-<li>自动垃圾回收（GC）。</li>
-<li>System.gc（）仅为建议，无法强制。</li>
+<li>自动垃圾回收（ <code class="notranslate">GC</code> ）。</li>
+<li><code class="notranslate">System.gc</code> （）仅为建议，无法强制。</li>
 </ul>
 </li>
-<li>变量赋值：
+<li><strong>变量赋值</strong>：
 <ul>
 <li>若赋值：使用赋值值。</li>
 <li>若未赋值：
 <ul>
-<li>数值类型：默认为0.</li>
-<li>布尔类型：默认false。</li>
-<li>引用类型：默认为null。</li>
+<li>数值类型：默认为 <code class="notranslate">0</code> .</li>
+<li>布尔类型：默认 <code class="notranslate">false</code> 。</li>
+<li>引用类型：默认为 <code class="notranslate">null</code> 。</li>
 </ul>
 </li>
 </ul>
@@ -218,70 +224,204 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
+<hr>
 <h2>第三章</h2>
 <h3>3.1 类的继承</h3>
+<h4>子类和父类的关系</h4>
 <ul>
-<li>子类和父类的关系：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Parent</span> {
+<li>
+<p>父类的属性和方法可以被子类继承。</p>
+</li>
+<li>
+<p>子类可以重写父类的方法，也可以扩展新的属性和方法。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 父类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s">"Parent"</span>;
+
     <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>() {
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Parent method"</span>);
     }
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">showName</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Name: "</span> + <span class="pl-s1">name</span>);
+    }
 }
+
+<span class="pl-c">// 子类</span>
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Child</span> <span class="pl-k">extends</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-s1">name</span> = <span class="pl-s">"Child"</span>;
+
     <span class="pl-c1">@</span><span class="pl-c1">Override</span>
     <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>() {
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Child method"</span>);
     }
-}</pre></div>
-</li>
-<li>测试类：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">childOnlyMethod</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"This is a child-only method"</span>);
+    }
+}
+
+<span class="pl-c">// 测试类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
     <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-c">// 父类引用指向子类对象（多态）</span>
         <span class="pl-smi">Parent</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Child</span>();
-        <span class="pl-s1">obj</span>.<span class="pl-en">method</span>(); <span class="pl-c">// 输出: Child method</span>
+
+        <span class="pl-s1">obj</span>.<span class="pl-en">method</span>();          <span class="pl-c">// 输出: Child method</span>
+        <span class="pl-s1">obj</span>.<span class="pl-en">showName</span>();        <span class="pl-c">// 输出: Name: Parent</span>
+        <span class="pl-c">// obj.childOnlyMethod(); // 编译报错：Parent类中无此方法</span>
+
+        <span class="pl-c">// 如果想访问子类特有方法，需强制类型转换</span>
+        <span class="pl-smi">Child</span> <span class="pl-s1">child</span> = (<span class="pl-smi">Child</span>) <span class="pl-s1">obj</span>;
+        <span class="pl-s1">child</span>.<span class="pl-en">childOnlyMethod</span>(); <span class="pl-c">// 输出: This is a child-only method</span>
     }
 }</pre></div>
 </li>
 </ul>
-<h3>3.2 Object 类</h3>
+<h4>特性分析</h4>
 <ul>
-<li>相等与同一：
-<ul>
-<li>== 比较地址值。</li>
-<li>equals 默认实现比较地址，可重写比较内容。</li>
+<li><strong>重写</strong>：子类可以提供自己的实现，父类方法被覆盖。</li>
+<li><strong>多态</strong>：通过父类引用调用的方法，实际运行时决定于对象的实际类型。</li>
+<li><strong>字段隐藏</strong>：父类和子类的同名属性不共享，多态不适用于字段。</li>
 </ul>
-</li>
-</ul>
-<h3>3.3 final类与方法</h3>
+<h3>3.2  <code class="notranslate">Object</code> 类</h3>
+<h4>相等与同一</h4>
 <ul>
-<li>final类不能被继承。</li>
-<li>final方法不能被重写。</li>
-</ul>
-<h3>3.4 抽象类</h3>
-<ul>
-<li>特点：
-<ul>
-<li>不能实例化。</li>
-<li>包含抽象方法和非抽象方法。</li>
-</ul>
-</li>
-</ul>
-<h2>第四章</h2>
-<h3>4.1接口</h3>
-<ul>
-<li>
-<p>定义接口：</p>
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">MyInterface</span> {
-    <span class="pl-smi">int</span> <span class="pl-c1">CONSTANT</span> = <span class="pl-c1">100</span>; <span class="pl-c">// 默认`public static final`</span>
-    <span class="pl-smi">void</span> <span class="pl-en">method</span>(); <span class="pl-c">// 默认`public abstract`</span>
+<li><strong><code class="notranslate">==</code></strong>  比较的是两个引用的内存地址。</li>
+<li><strong><code class="notranslate">equals</code></strong>  默认比较内存地址，但可以被重写用来比较对象内容。
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 示例代码</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">EqualsDemo</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">value</span>;
+
+    <span class="pl-k">public</span> <span class="pl-smi">EqualsDemo</span>(<span class="pl-smi">String</span> <span class="pl-s1">value</span>) {
+        <span class="pl-smi">this</span>.<span class="pl-s1">value</span> = <span class="pl-s1">value</span>;
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">boolean</span> <span class="pl-en">equals</span>(<span class="pl-smi">Object</span> <span class="pl-s1">obj</span>) {
+        <span class="pl-k">if</span> (<span class="pl-smi">this</span> == <span class="pl-s1">obj</span>) <span class="pl-k">return</span> <span class="pl-c1">true</span>; <span class="pl-c">// 比较内存地址</span>
+        <span class="pl-k">if</span> (<span class="pl-s1">obj</span> == <span class="pl-c1">null</span> || <span class="pl-en">getClass</span>() != <span class="pl-s1">obj</span>.<span class="pl-en">getClass</span>()) <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+
+        <span class="pl-smi">EqualsDemo</span> <span class="pl-s1">that</span> = (<span class="pl-smi">EqualsDemo</span>) <span class="pl-s1">obj</span>;
+        <span class="pl-k">return</span> <span class="pl-s1">value</span> != <span class="pl-c1">null</span> ? <span class="pl-s1">value</span>.<span class="pl-en">equals</span>(<span class="pl-s1">that</span>.<span class="pl-s1">value</span>) : <span class="pl-s1">that</span>.<span class="pl-s1">value</span> == <span class="pl-c1">null</span>;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">EqualsDemo</span> <span class="pl-s1">obj1</span> = <span class="pl-k">new</span> <span class="pl-smi">EqualsDemo</span>(<span class="pl-s">"Test"</span>);
+        <span class="pl-smi">EqualsDemo</span> <span class="pl-s1">obj2</span> = <span class="pl-k">new</span> <span class="pl-smi">EqualsDemo</span>(<span class="pl-s">"Test"</span>);
+        <span class="pl-smi">EqualsDemo</span> <span class="pl-s1">obj3</span> = <span class="pl-s1">obj1</span>;
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span> == <span class="pl-s1">obj2</span>);        <span class="pl-c">// false</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span>.<span class="pl-en">equals</span>(<span class="pl-s1">obj2</span>));  <span class="pl-c">// true</span>
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">obj1</span> == <span class="pl-s1">obj3</span>);       <span class="pl-c">// true</span>
+    }
 }</pre></div>
 </li>
-<li>
-<p>实现接口：</p>
+</ul>
+<h3>3.3  <code class="notranslate">final</code> 类与方法</h3>
+<h4><code class="notranslate">final</code> 类</h4>
+<ul>
+<li><code class="notranslate">final</code> 修饰的类无法被继承。
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">class</span> <span class="pl-smi">FinalClass</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">show</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"This is a final class"</span>);
+    }
+}
+<span class="pl-c">// 无法继承</span>
+<span class="pl-c">// public class ChildClass extends FinalClass { } // 报错</span></pre></div>
+</li>
+</ul>
+<h4><code class="notranslate">final</code> 方法</h4>
+<ul>
+<li>子类无法重写 <code class="notranslate">final</code> 方法。
+<div class="highlight highlight-source-java"><pre class="notranslate">   <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-smi">void</span> <span class="pl-en">finalMethod</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"This is a final method"</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Child</span> <span class="pl-k">extends</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-c">// @Override</span>
+    <span class="pl-c">// public void finalMethod() { } // 报错</span>
+}</pre></div>
+</li>
+</ul>
+<h3>3.4 抽象类</h3>
+<h4>特点</h4>
+<ul>
+<li>抽象类可以包含抽象方法（无实现）和具体方法（有实现）。</li>
+<li>无法直接实例化抽象类。
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c">// 抽象类</span>
+<span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-smi">Animal</span> {
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-smi">void</span> <span class="pl-en">makeSound</span>(); <span class="pl-c">// 抽象方法</span>
+
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">eat</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"This animal is eating"</span>);
+    }
+}
+
+<span class="pl-c">// 具体类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Dog</span> <span class="pl-k">extends</span> <span class="pl-smi">Animal</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">makeSound</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Woof Woof!"</span>);
+    }
+}
+
+<span class="pl-c">// 测试类</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Animal</span> <span class="pl-s1">animal</span> = <span class="pl-k">new</span> <span class="pl-smi">Dog</span>();
+        <span class="pl-s1">animal</span>.<span class="pl-en">makeSound</span>(); <span class="pl-c">// 输出: Woof Woof!</span>
+        <span class="pl-s1">animal</span>.<span class="pl-en">eat</span>();       <span class="pl-c">// 输出: This animal is eating</span>
+    }
+}</pre></div>
+</li>
+</ul>
+<hr>
+<h2>第四章</h2>
+<h3>4.1接口</h3>
+<h4>定义接口：</h4>
+<ul>
+<li>接口中所有的变量默认为 <strong><code class="notranslate">public static final</code></strong> ，方法默认为 <strong><code class="notranslate">public abstract</code></strong> 。
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">MyInterface</span> {
+    <span class="pl-smi">int</span> <span class="pl-c1">CONSTANT</span> = <span class="pl-c1">100</span>; <span class="pl-c">// 等价于 public static final int CONSTANT = 100;</span>
+    <span class="pl-smi">void</span> <span class="pl-en">method</span>(); <span class="pl-c">// 等价于 public abstract void method();</span>
+}</pre></div>
+</li>
+</ul>
+<h4>实现接口：</h4>
+<ul>
+<li>类通过 <strong><code class="notranslate">implements</code></strong> 关键字实现接口，并必须实现接口的所有方法。
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyClass</span> <span class="pl-k">implements</span> <span class="pl-smi">MyInterface</span> {
     <span class="pl-c1">@</span><span class="pl-c1">Override</span>
     <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">method</span>() {
         <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Implementing interface"</span>);
+    }
+}</pre></div>
+</li>
+</ul>
+<h4>多接口实现</h4>
+<ul>
+<li>
+<p>一个类可以实现多个接口。</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">InterfaceA</span> {
+    <span class="pl-smi">void</span> <span class="pl-en">methodA</span>();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">InterfaceB</span> {
+    <span class="pl-smi">void</span> <span class="pl-en">methodB</span>();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MyMultiInterfaceClass</span> <span class="pl-k">implements</span> <span class="pl-smi">InterfaceA</span>, <span class="pl-smi">InterfaceB</span> {
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">methodA</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Implementing methodA"</span>);
+    }
+
+    <span class="pl-c1">@</span><span class="pl-c1">Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">methodB</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Implementing methodB"</span>);
     }
 }</pre></div>
 </li>
@@ -290,85 +430,219 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
     <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
         <span class="pl-smi">MyInterface</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">MyClass</span>();
-        <span class="pl-s1">obj</span>.<span class="pl-en">method</span>();
+        <span class="pl-s1">obj</span>.<span class="pl-en">method</span>(); <span class="pl-c">// 输出: Implementing interface</span>
     }
 }</pre></div>
 </li>
 </ul>
 <h3>4.5 构造方法与多态</h3>
 <ul>
-<li>构造方法的调用顺序：
+<li>
+<p>构造方法的调用顺序：</p>
 <ul>
 <li>父类构造方法 -&gt; 子类构造方法。</li>
 </ul>
-</li>
-<li>多态：
-<ul>
-<li>父类引用指向子类对象。</li>
-</ul>
-</li>
-</ul>
-<h2>第五章</h2>
-<h3>5.1 异常处理机制</h3>
-<ul>
-<li>简介：
-<ul>
-<li>异常是程序执行过程中出现的错误。</li>
-<li>异常分为检查型（IOException）和非检查型（RuntimeException）。</li>
-</ul>
-</li>
-</ul>
-<h3>5.2 异常处理</h3>
-<ul>
-<li>语句块：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> {
-    <span class="pl-c">// 可能抛出异常的代码</span>
-} <span class="pl-k">catch</span> (<span class="pl-smi">ExceptionType</span> <span class="pl-s1">e</span>) {
-    <span class="pl-c">// 异常处理</span>
-} <span class="pl-k">finally</span> {
-    <span class="pl-c">// 始终执行</span>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">Parent</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Parent constructor"</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Child</span> <span class="pl-k">extends</span> <span class="pl-smi">Parent</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">Child</span>() {
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Child constructor"</span>);
+    }
+}
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Child</span> <span class="pl-s1">child</span> = <span class="pl-k">new</span> <span class="pl-smi">Child</span>();
+        <span class="pl-c">// 输出：</span>
+        <span class="pl-c">// Parent constructor</span>
+        <span class="pl-c">// Child constructor</span>
+    }
 }</pre></div>
 </li>
-<li>catch顺序：
+<li>
+<p>多态：</p>
 <ul>
-<li>子类异常必须在父类异常之前。</li>
+<li>父类引用指向子类对象，方法调用表现出多态性。</li>
 </ul>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">Test</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Parent</span> <span class="pl-s1">obj</span> = <span class="pl-k">new</span> <span class="pl-smi">Child</span>();
+        <span class="pl-s1">obj</span>.<span class="pl-en">method</span>(); <span class="pl-c">// 输出: Child method</span>
+    }
+}</pre></div>
+</li>
+</ul>
+<hr>
+<h2>第五章</h2>
+<h3>5.1 异常处理机制简介概述</h3>
+<h4>异常的概念</h4>
+<ul>
+<li><strong>异常</strong>是程序运行时出现的错误情况。Java通过异常处理机制提供了一种优雅的错误处理方式。</li>
+<li><strong>异常分类</strong>：
+<ol>
+<li><strong>受检异常（Checked Exception）</strong>：编译器强制要求处理的异常，例如<code class="notranslate">IOException</code>。</li>
+<li><strong>非受检异常（Unchecked Exception）</strong>：运行时异常或错误，例如<code class="notranslate">NullPointerException</code>。</li>
+<li><strong>错误（Error）</strong>：严重问题，通常由JVM抛出，程序无法处理，例如<code class="notranslate">OutOfMemoryError</code>。</li>
+</ol>
+</li>
+</ul>
+<h4>异常处理的优势</h4>
+<ul>
+<li>提升程序的健壮性。</li>
+<li>将错误与正常逻辑分离，代码可读性更高。</li>
+<li>提供了一种结构化的错误恢复机制。</li>
+</ul>
+<h3>5.2 异常处理</h3>
+<h4><code class="notranslate">try-catch-finally</code> 结构</h4>
+<ul>
+<li><strong>语法</strong>：
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> {
+    <span class="pl-c">// 可能抛出异常的代码</span>
+} <span class="pl-k">catch</span> (<span class="pl-smi">ExceptionType1</span> <span class="pl-s1">e</span>) {
+    <span class="pl-c">// 捕获ExceptionType1的异常</span>
+} <span class="pl-k">catch</span> (<span class="pl-smi">ExceptionType2</span> <span class="pl-s1">e</span>) {
+    <span class="pl-c">// 捕获ExceptionType2的异常</span>
+} <span class="pl-k">finally</span> {
+    <span class="pl-c">// 总是会执行的代码块（如释放资源）</span>
+}</pre></div>
+</li>
+</ul>
+<h4>示例代码</h4>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">ExceptionDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">int</span> <span class="pl-s1">a</span> = <span class="pl-c1">10</span> / <span class="pl-c1">0</span>; <span class="pl-c">// 可能抛出ArithmeticException</span>
+        } <span class="pl-k">catch</span> (<span class="pl-smi">ArithmeticException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Caught ArithmeticException: "</span> + <span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Caught general exception: "</span> + <span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"This block always executes."</span>);
+        }
+    }
+}</pre></div>
+<h4>捕获多个异常的顺序</h4>
+<ul>
+<li>捕获顺序从具体异常到通用异常，因为Java采用从上到下匹配的方式。</li>
+<li>示例：
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> {
+    <span class="pl-smi">int</span>[] <span class="pl-s1">arr</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">2</span>];
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">arr</span>[<span class="pl-c1">5</span>]); <span class="pl-c">// ArrayIndexOutOfBoundsException</span>
+} <span class="pl-k">catch</span> (<span class="pl-smi">ArrayIndexOutOfBoundsException</span> <span class="pl-s1">e</span>) {
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Array index out of bounds!"</span>);
+} <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+    <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"General exception!"</span>);
+}</pre></div>
+</li>
+<li>若将 <code class="notranslate">Exception</code> 写在最前面，具体异常永远不会被捕获，编译器会报错。</li>
+</ul>
+<h4><code class="notranslate">finally</code> 的作用</h4>
+<ul>
+<li><strong>确保资源释放</strong>：例如关闭文件流、数据库连接。</li>
+<li><strong>总是执行</strong>：即使在 <code class="notranslate">try</code> 或 <code class="notranslate">catch</code> 中有 <code class="notranslate">return</code> 或异常抛出。<br>
+<strong>示例代码</strong>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FinallyDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-k">try</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Inside try block"</span>);
+            <span class="pl-k">return</span>;
+        } <span class="pl-k">catch</span> (<span class="pl-smi">Exception</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Inside catch block"</span>);
+        } <span class="pl-k">finally</span> {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Inside finally block"</span>);
+        }
+    }
+}
+<span class="pl-c">// 输出:</span>
+<span class="pl-c">// Inside try block</span>
+<span class="pl-c">// Inside finally block</span></pre></div>
 </li>
 </ul>
 <h3>5.3 输入输出流</h3>
-<ul>
-<li>键盘输入：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Scanner</span> <span class="pl-s1">scanner</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
-<span class="pl-smi">int</span> <span class="pl-s1">n</span> = <span class="pl-s1">scanner</span>.<span class="pl-en">nextInt</span>();</pre></div>
-</li>
-<li>文件读写：
-<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">try</span> (<span class="pl-smi">BufferedReader</span> <span class="pl-s1">br</span> = <span class="pl-k">new</span> <span class="pl-smi">BufferedReader</span>(<span class="pl-k">new</span> <span class="pl-smi">FileReader</span>(<span class="pl-s">"file.txt"</span>));
-     <span class="pl-smi">BufferedWriter</span> <span class="pl-s1">bw</span> = <span class="pl-k">new</span> <span class="pl-smi">BufferedWriter</span>(<span class="pl-k">new</span> <span class="pl-smi">FileWriter</span>(<span class="pl-s">"output.txt"</span>))) {
-    <span class="pl-smi">String</span> <span class="pl-s1">line</span>;
-    <span class="pl-k">while</span> ((<span class="pl-s1">line</span> = <span class="pl-s1">br</span>.<span class="pl-en">readLine</span>()) != <span class="pl-c1">null</span>) {
-        <span class="pl-s1">bw</span>.<span class="pl-en">write</span>(<span class="pl-s1">line</span>);
-        <span class="pl-s1">bw</span>.<span class="pl-en">newLine</span>();
+<p>从键盘输入 <code class="notranslate">n</code> 个数<br>
+使用 <code class="notranslate">Scanner</code></p>
+<div class="highlight highlight-source-java"><pre class="notranslate">   <span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">util</span>.<span class="pl-s1">Scanner</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">InputDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">Scanner</span> <span class="pl-s1">scanner</span> = <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>);
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Enter 5 numbers:"</span>);
+        <span class="pl-smi">int</span>[] <span class="pl-s1">numbers</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-c1">5</span>];
+
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">numbers</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">numbers</span>[<span class="pl-s1">i</span>] = <span class="pl-s1">scanner</span>.<span class="pl-en">nextInt</span>();
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"You entered:"</span>);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">number</span> : <span class="pl-s1">numbers</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">number</span> + <span class="pl-s">" "</span>);
+        }
     }
-} <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> <span class="pl-s1">e</span>) {
-    <span class="pl-s1">e</span>.<span class="pl-en">printStackTrace</span>();
 }</pre></div>
-</li>
-</ul>
+<p>使用 <code class="notranslate">BufferedReader</code></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">BufferedReader</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">IOException</span>;
+<span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.<span class="pl-s1">InputStreamReader</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BufferedReaderDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) <span class="pl-k">throws</span> <span class="pl-smi">IOException</span> {
+        <span class="pl-smi">BufferedReader</span> <span class="pl-s1">reader</span> = <span class="pl-k">new</span> <span class="pl-smi">BufferedReader</span>(<span class="pl-k">new</span> <span class="pl-smi">InputStreamReader</span>(<span class="pl-smi">System</span>.<span class="pl-s1">in</span>));
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Enter 5 numbers separated by space:"</span>);
+        <span class="pl-smi">String</span>[] <span class="pl-s1">input</span> = <span class="pl-s1">reader</span>.<span class="pl-en">readLine</span>().<span class="pl-en">split</span>(<span class="pl-s">" "</span>);
+        <span class="pl-smi">int</span>[] <span class="pl-s1">numbers</span> = <span class="pl-k">new</span> <span class="pl-smi">int</span>[<span class="pl-s1">input</span>.<span class="pl-s1">length</span>];
+
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">i</span> = <span class="pl-c1">0</span>; <span class="pl-s1">i</span> &lt; <span class="pl-s1">input</span>.<span class="pl-s1">length</span>; <span class="pl-s1">i</span>++) {
+            <span class="pl-s1">numbers</span>[<span class="pl-s1">i</span>] = <span class="pl-smi">Integer</span>.<span class="pl-en">parseInt</span>(<span class="pl-s1">input</span>[<span class="pl-s1">i</span>]);
+        }
+
+        <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"You entered:"</span>);
+        <span class="pl-k">for</span> (<span class="pl-smi">int</span> <span class="pl-s1">number</span> : <span class="pl-s1">numbers</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">print</span>(<span class="pl-s1">number</span> + <span class="pl-s">" "</span>);
+        }
+    }
+}</pre></div>
+<h4>文件读写：</h4>
+<p><strong>从文件读写</strong></p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">java</span>.<span class="pl-s1">io</span>.*;
+
+   <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">FileReadWriteDemo</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-smi">void</span> <span class="pl-en">main</span>(<span class="pl-smi">String</span>[] <span class="pl-s1">args</span>) {
+        <span class="pl-smi">String</span> <span class="pl-s1">inputFile</span> = <span class="pl-s">"input.txt"</span>;
+        <span class="pl-smi">String</span> <span class="pl-s1">outputFile</span> = <span class="pl-s">"output.txt"</span>;
+
+        <span class="pl-k">try</span> (<span class="pl-smi">BufferedReader</span> <span class="pl-s1">br</span> = <span class="pl-k">new</span> <span class="pl-smi">BufferedReader</span>(<span class="pl-k">new</span> <span class="pl-smi">FileReader</span>(<span class="pl-s1">inputFile</span>));
+             <span class="pl-smi">BufferedWriter</span> <span class="pl-s1">bw</span> = <span class="pl-k">new</span> <span class="pl-smi">BufferedWriter</span>(<span class="pl-k">new</span> <span class="pl-smi">FileWriter</span>(<span class="pl-s1">outputFile</span>))) {
+
+            <span class="pl-smi">String</span> <span class="pl-s1">line</span>;
+            <span class="pl-k">while</span> ((<span class="pl-s1">line</span> = <span class="pl-s1">br</span>.<span class="pl-en">readLine</span>()) != <span class="pl-c1">null</span>) {
+                <span class="pl-s1">bw</span>.<span class="pl-en">write</span>(<span class="pl-s1">line</span>.<span class="pl-en">toUpperCase</span>());
+                <span class="pl-s1">bw</span>.<span class="pl-en">newLine</span>();
+            }
+        } <span class="pl-k">catch</span> (<span class="pl-smi">IOException</span> <span class="pl-s1">e</span>) {
+            <span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s">"Error: "</span> + <span class="pl-s1">e</span>.<span class="pl-en">getMessage</span>());
+        }
+    }
+}</pre></div>
+<hr>
 <h2>第六章</h2>
 <h3>6.3 集合框架中的常用类</h3>
 <ul>
-<li>HashSet：无序，不允许重复元素。</li>
-<li>Vector 和 ArrayList：
+<li><strong><code class="notranslate">HashSet</code></strong> ：无序，不允许重复元素。</li>
+<li><strong><code class="notranslate">Vector</code></strong>  和  <code class="notranslate">ArrayList</code> ：
 <ul>
-<li>Vector：线程安全。</li>
-<li>ArrayList：效率更高，非线程安全。</li>
+<li><code class="notranslate">Vector</code> ：线程安全。</li>
+<li><code class="notranslate">ArrayList</code> ：效率更高，非线程安全。</li>
 </ul>
 </li>
-<li>LinkedList：双向链表结构。</li>
-<li>HashTable 和 HashMap：
+<li><strong><code class="notranslate">LinkedList</code></strong> ：双向链表结构。</li>
+<li><strong><code class="notranslate">HashTable</code></strong>  和  <strong><code class="notranslate">HashMap</code></strong> ：
 <ul>
-<li>HashTable：线程安全。</li>
-<li>HashMap：非线程安全，允许null键值。</li>
+<li><code class="notranslate">HashTable</code> ：线程安全。</li>
+<li><code class="notranslate">HashMap</code> ：非线程安全，允许 <code class="notranslate">null</code> 键值。</li>
 </ul>
 </li>
 </ul>
@@ -380,12 +654,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 }</pre></div>
 </li>
 </ul>
+<hr>
 <h2>第七章（浅看）</h2>
-<h3>Swing组件和容器</h3>
+<h3><code class="notranslate">Swing</code> 组件和容器</h3>
 <ul>
 <li>常见组件：
 <ul>
-<li>JButton、JLabel、JTextField。</li>
+<li><code class="notranslate">JButton</code> 、 <code class="notranslate">JLabel</code> 、 <code class="notranslate">JTextField</code> 。</li>
 </ul>
 </li>
 <li>事件处理：

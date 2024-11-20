@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Wed, 20 Nov 2024 05:35:41 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>Java 复习纲</title><link>https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</link><description>&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Wed, 20 Nov 2024 05:38:53 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>Java 突击纲</title><link>https://Koi-Blue.github.io/post/Java%20-tu-ji-gang.html</link><description>&#13;
 # 第一章&#13;
 &#13;
 ## Java的特点&#13;
-- **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</guid><pubDate>Tue, 19 Nov 2024 08:52:03 +0000</pubDate></item><item><title>数据库系统概论突击纲</title><link>https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-tu-ji-gang.html</link><description>&#13;
+- **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/Java%20-tu-ji-gang.html</guid><pubDate>Tue, 19 Nov 2024 08:52:03 +0000</pubDate></item><item><title>数据库系统概论突击纲</title><link>https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-tu-ji-gang.html</link><description>&#13;
 &gt; 单选题10题10分&#13;
 &gt; 判断题10题10分&#13;
 &gt; 填空题10空10分（有难题，不会可空）&#13;

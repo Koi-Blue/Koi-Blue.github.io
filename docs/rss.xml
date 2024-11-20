@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Wed, 20 Nov 2024 05:33:00 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>Java 复习纲</title><link>https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</link><description>&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>无限进步</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Wed, 20 Nov 2024 05:35:41 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>Java 复习纲</title><link>https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</link><description>&#13;
 # 第一章&#13;
 &#13;
 ## Java的特点&#13;
-- **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</guid><pubDate>Tue, 19 Nov 2024 08:52:03 +0000</pubDate></item><item><title>数据库系统概论复习纲</title><link>https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-fu-xi-gang.html</link><description>&#13;
+- **跨平台性**：基于Java虚拟机（JVM），一次编写，到处运行。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/Java%20-fu-xi-gang.html</guid><pubDate>Tue, 19 Nov 2024 08:52:03 +0000</pubDate></item><item><title>数据库系统概论突击纲</title><link>https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-tu-ji-gang.html</link><description>&#13;
 &gt; 单选题10题10分&#13;
 &gt; 判断题10题10分&#13;
 &gt; 填空题10空10分（有难题，不会可空）&#13;
@@ -30,7 +30,7 @@ $\qquad$ 关系模型建立在严格的**数学概念**的基础上，从用户�
 1. 要求关系必须是规范化的，关系必须满足一定的规范条件，关系的每一个分量必须是一个不可分的数据项；&#13;
 2. 关系模型的数据操纵主要包括查询、插入、删除和更新数据；这些操作必须满足关系的完整性约束条件；&#13;
 3. 关系模型中的数据操作是集合操作，操作对象和操作结果都是关系；&#13;
-4. 关系模型把存取路径向用户隐蔽起来，用户只要指出“干什么”或“找什么”， 不必详细说明“怎么干”或“怎么找”。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-fu-xi-gang.html</guid><pubDate>Tue, 19 Nov 2024 06:15:09 +0000</pubDate></item><item><title>OpenCV第三阶段 -- 原理简述（待续）</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</link><description># 第三阶段：中级图像处理&#13;
+4. 关系模型把存取路径向用户隐蔽起来，用户只要指出“干什么”或“找什么”， 不必详细说明“怎么干”或“怎么找”。</description><guid isPermaLink="true">https://Koi-Blue.github.io/post/shu-ju-ku-xi-tong-gai-lun-tu-ji-gang.html</guid><pubDate>Tue, 19 Nov 2024 06:15:09 +0000</pubDate></item><item><title>OpenCV第三阶段 -- 原理简述（待续）</title><link>https://Koi-Blue.github.io/post/OpenCV-di-san-jie-duan-%20--%20-yuan-li-jian-shu-%EF%BC%88-dai-xu-%EF%BC%89.html</link><description># 第三阶段：中级图像处理&#13;
 &#13;
 ## 1. 图像滤波&#13;
 &#13;

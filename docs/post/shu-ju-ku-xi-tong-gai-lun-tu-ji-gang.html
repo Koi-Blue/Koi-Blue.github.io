@@ -379,10 +379,96 @@ $\qquad$ 自主存取控制能够通过授权机制有效地控制对敏感数�
 <h1>第六章 （20分）</h1>
 <p>$\qquad$ 一范式，二范式（2NF），三范式（3NF），BC范式定义（定义，查清依赖，完全依赖还是部份依赖； 查清修改时会发生什么事）<br>
 $\qquad$ 比如二范式拆分到BC范式，先阐明为什么满足二范式，写删除修改，更新异常会发生什么，然后写BC范式（即传递依赖）（PPT分析）。</p>
+<blockquote>
+<p><strong>step1</strong>：闭包<br>
+<strong>step2</strong>：候选码，主属性<br>
+<strong>step3</strong>：判断范式<br>
+<strong>step4</strong>：分解</p>
+</blockquote>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Sno</th>
+<th>Sname</th>
+<th>Ssex</th>
+<th>Sage</th>
+<th>Sdept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>刘一</td>
+<td>女</td>
+<td>18</td>
+<td>CS</td>
+</tr>
+<tr>
+<td>02</td>
+<td>王二</td>
+<td>女</td>
+<td>19</td>
+<td>IS</td>
+</tr>
+<tr>
+<td>03</td>
+<td>张三</td>
+<td>男</td>
+<td>18</td>
+<td>CS</td>
+</tr>
+<tr>
+<td>04</td>
+<td>李明</td>
+<td>男</td>
+<td>20</td>
+<td>CS</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>名词</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元组</td>
+<td>对于第一行（01-刘一-女-18-CS）即为一个元组，表示一个人的全部信息</td>
+</tr>
+<tr>
+<td>属性</td>
+<td>对于第一列（01-02-03-04）即为一个属性（Sno）</td>
+</tr>
+<tr>
+<td>码</td>
+<td>可以区别一个元组</td>
+</tr>
+<tr>
+<td>候选码</td>
+<td>可以唯一标识一个元组的<strong>最小</strong>属性集合</td>
+</tr>
+<tr>
+<td>主码</td>
+<td>从候选码中挑的唯一</td>
+</tr>
+<tr>
+<td>主属性</td>
+<td>候选码所有元素的并集</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>具有<strong>码</strong>包含<strong>候选码</strong>包含<strong>主码</strong>的关系</p>
+<p><strong>例子：</strong> 学生（学号，姓名，年龄，性别）<br>
+码：学号，姓名，（学号，姓名），（学号，年龄），（学号，性别），（学号，性别，年龄）<br>
+候选码：学号，姓名<br>
+主码：学号（从候选码中人为挑选的）</p>
 <hr>
 <h1>第七章</h1>
-<p>E-R图：<br>
-$\qquad$ 根据一句话的要求条件建E-R图（搞清楚哪里是“三角，矩形，椭圆，菱形”）<br>
+<h3>E-R图：</h3>
+<p>$\qquad$ 根据一句话的要求条件建E-R图（搞清楚哪里是“三角，矩形，椭圆，菱形”）<br>
 $\qquad$ 画好后转换写成数个关系模式（会设计主码，外码；学会表嵌套）</p>
 <p><strong>例題</strong></p>
 <p>$\qquad$ 设有如下教学环境，一个班级有多名学生，一个学生只属于一个班级。一个学生可以选修若干门课程，每门课若干学生选修，学生选修每门课有一个成绩。一门课程只有一位教师讲授，一名教师可以讲授多门课。每位教师属于一个教研室，一个教研室有若干教师。其中班级由班级编号、班级名称等属性描述;学生由学号、姓名等属性描述;课程由课程编号、课程名称等属性描述;教师由教师编号、教师姓名、教师地址等属性描述;教研室由教研室编号、教研室名称等属性描述。</p>

@@ -385,10 +385,30 @@ $\qquad$ 比如二范式拆分到BC范式，先阐明为什么满足二范式，
 $\qquad$ 根据一句话的要求条件建E-R图（搞清楚哪里是“三角，矩形，椭圆，菱形”）<br>
 $\qquad$ 画好后转换写成数个关系模式（会设计主码，外码；学会表嵌套）</p>
 <p><strong>例題</strong></p>
-<p>$\qquad$ 设有如下教学环境，一个班级有多名学生，一个学生只属于一个班级。一个学生可以选修若干门课程，每门课若干学生选修，学生选修每门课有一个成绩。一门课程只有一位教师讲授，一名教师可以讲授多门课。每位教师属于一个教研室，一个教研室有若干教师。其中班级由班级编号、班级名称等属性描述;学生由学号、姓名等属性描述;课程由课程编号、课程名称等属性描述;教师由教师编号、教师姓名、教师地址等属性描述;教研室由教研室编号、教研室名称等属性描述。<br>
-1、根据上述语义画出ER图，要求在图中画出属性并注明联系的类型<br>
-2、将 ER 模型转换成关系模式，并指出每个关系模式的主键和外键。</p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/016bf2245cdbae62ba6d5240d0ebe2fa1474eade86a226bc8fda4de56d2bbca2/68747470733a2f2f692e706f7374696d672e63632f71714d64467956342f373663613831353335383363303264323461343536303963323838326166342e6a7067"><img src="https://camo.githubusercontent.com/016bf2245cdbae62ba6d5240d0ebe2fa1474eade86a226bc8fda4de56d2bbca2/68747470733a2f2f692e706f7374696d672e63632f71714d64467956342f373663613831353335383363303264323461343536303963323838326166342e6a7067" alt="76ca8153583c02d24a45609c2882af4.jpg" data-canonical-src="https://i.postimg.cc/qqMdFyV4/76ca8153583c02d24a45609c2882af4.jpg" style="max-width: 100%;"></a></p>
+<p>$\qquad$ 设有如下教学环境，一个班级有多名学生，一个学生只属于一个班级。一个学生可以选修若干门课程，每门课若干学生选修，学生选修每门课有一个成绩。一门课程只有一位教师讲授，一名教师可以讲授多门课。每位教师属于一个教研室，一个教研室有若干教师。其中班级由班级编号、班级名称等属性描述;学生由学号、姓名等属性描述;课程由课程编号、课程名称等属性描述;教师由教师编号、教师姓名、教师地址等属性描述;教研室由教研室编号、教研室名称等属性描述。</p>
+<ol>
+<li>根据上述语义画出ER图，要求在图中画出属性并注明联系的类型。</li>
+<li>将 ER 模型转换成关系模式，并指出每个关系模式的主键和外键。</li>
+</ol>
+<p><strong>答</strong></p>
+<ol>
+<li>
+<p>如圖<br>
+<a href="https://postimg.cc/QBckkHmz" rel="nofollow"><img src="https://camo.githubusercontent.com/d8f68a5faefd64e95847c2149c0a0e6f405052015c2c83c095772f3a6c551ea8/68747470733a2f2f692e706f7374696d672e63632f36516d6a4b5a76422f623063323530323262616138303438653735333366313464613730353032372e6a7067" alt="b0c25022baa8048e7533f14da705027.jpg" data-canonical-src="https://i.postimg.cc/6QmjKZvB/b0c25022baa8048e7533f14da705027.jpg" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p>关系模式</p>
+</li>
+</ol>
+<blockquote>
+<p>学生（<strong>学号</strong>，姓名，<mark>班级编号</mark>）<br>
+班级（<strong>班级编号</strong>，班级名称）<br>
+课程（<strong>课程编号</strong>，课程名称，<mark>教师编号</mark>）<br>
+教师（<strong>教师编号</strong>，教师姓名，教师地址，<mark>教研室编号</mark>）<br>
+教研室（<strong>教研室编号</strong>，教研室名称）<br>
+选修（<strong><mark>学号</mark></strong>，<strong><mark>课程编号</mark></strong>，成绩）</p>
+</blockquote>
+<p>$\qquad$其中加粗为主键，高亮为外键。</p>
 <hr>
 <h1>第八章 （无大题）</h1>
 <h2>8.1.1 定义</h2>

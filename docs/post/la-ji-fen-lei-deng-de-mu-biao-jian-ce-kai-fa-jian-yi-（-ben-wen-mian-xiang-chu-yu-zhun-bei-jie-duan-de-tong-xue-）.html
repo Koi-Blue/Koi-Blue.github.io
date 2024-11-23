@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark-blue" data-light-theme="dark" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/182211636?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 基于计算机视觉的智能垃圾分类项目软硬件采购及实施指南
+
+---
+
+## 硬件方案选择
+
+### 1. 树莓派
+树莓派是该项目开发的常用选择，其提供了较强的计算性能，能够满足智能垃圾分类项目的基本需求。">
+<meta property="og:title" content="垃圾分类等的目标检测开发建议（本文面向处于准备阶段的同学）">
+<meta property="og:description" content="# 基于计算机视觉的智能垃圾分类项目软硬件采购及实施指南
+
+---
+
+## 硬件方案选择
+
+### 1. 树莓派
+树莓派是该项目开发的常用选择，其提供了较强的计算性能，能够满足智能垃圾分类项目的基本需求。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Koi-Blue.github.io/post/la-ji-fen-lei-deng-de-mu-biao-jian-ce-kai-fa-jian-yi-%EF%BC%88-ben-wen-mian-xiang-chu-yu-zhun-bei-jie-duan-de-tong-xue-%EF%BC%89.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/182211636?v=4">
+<title>垃圾分类等的目标检测开发建议（本文面向处于准备阶段的同学）</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">垃圾分类等的目标检测开发建议（本文面向处于准备阶段的同学）</h1>
+<div class="title-right">
+    <a href="https://Koi-Blue.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Koi-Blue/Koi-Blue.github.io/issues/14" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>基于计算机视觉的智能垃圾分类项目软硬件采购及实施指南</h1>
+<hr>
+<h2>硬件方案选择</h2>
+<h3>1. 树莓派</h3>
+<p>树莓派是该项目开发的常用选择，其提供了较强的计算性能，能够满足智能垃圾分类项目的基本需求。它具有广泛的社区支持，初学者可以轻松获取所需的资源和技术指导。</p>
+<p>树莓派的优点在于其能耗低、价格适中，能够支持各种外设扩展，例如USB摄像头、Wi-Fi模块和GPIO接口。但是硬件性能在运行较复杂的深度学习模型时可能显得捉襟见肘，建议结合轻量化的目标检测模型使用。</p>
+<p>树莓派适合的配件包括高速存储卡、摄像头模块，以及电源。可以考虑增加散热配件，比如散热片或微型风扇。</p>
+<h3>2. 旭日Pi</h3>
+<p>旭日Pi是一款性能更强的开发板，内置的GPU和NPU为运行深度学习模型提供了硬件加速支持，是一种适合智能分类系统的嵌入式解决方案。与树莓派相比，旭日Pi在处理较大的深度学习模型时表现更优，适合对实时性要求更高的应用。</p>
+<p>由于其社区支持尚未完全成熟，新手可能需要更多时间来熟悉其环境和开发工具。旭日Pi的配件选择与树莓派类似，但建议选用支持高分辨率的摄像头，以满足高精度目标检测的需求。</p>
+<hr>
+<h2>软件方案规划</h2>
+<h3>开发环境</h3>
+<p>本项目建议使用Linux作为操作系统，其开放性和稳定性非常适合深度学习模型的部署与优化。在编程语言选择上，推荐Python用于模型训练，而C++则用于部署过程，结合OpenCV实现目标检测、图像处理等功能。为管理代码构建和依赖关系，可以使用CMake作为构建工具。</p>
+<h3>深度学习框架</h3>
+<p>目标检测任务推荐使用YOLO系列模型（如YOLOv5）或其他轻量化模型。这些模型具备较高的检测速度和精度，尤其是在经过剪枝或量化优化后，可以满足算力较弱设备的运行需求。</p>
+<hr>
+<h2>模型训练指南</h2>
+<h3>数据集准备</h3>
+<p>智能垃圾分类的关键在于构建高质量的训练数据集。需要收集各类垃圾的图像，并确保数据具有多样性，包括不同的光照条件、背景复杂度和角度变化。</p>
+<p>使用标注工具（可以采用<a href="https://blog.csdn.net/weixin_43427721/article/details/107122775" rel="nofollow">labelme</a>，或其他工具，具体可以上浏览器搜搜看）为图像数据添加标签，将其划分为训练集和验证集。标注时需注意精确性，避免标签模糊或错误，从而提高模型训练质量。</p>
+<h3>模型训练流程</h3>
+<p>模型训练的核心包括数据增强、参数调整和训练过程监控。数据增强能够提高模型的泛化能力，常用方法包括随机裁剪、旋转、亮度调整等。在模型训练的过程中，应关注关键指标，例如精确率、召回率和平均精度（mAP），并根据结果调整学习率、批量大小和网络结构。事实上训练的过程可以依靠官方文档，操作步骤极其简单，比如 <a href="https://github.com/ppogg/YOLOv5-Lite">yolov5-lite</a> 版本，文档中的操作步骤；该操作步骤不包含任何优化，不过yolov5-lite本身就是轻量版，相较于其他模型，更适合在树莓派等的开发板上运行。</p>
+<p>训练完成后，建议保存模型的最佳权重文件，以便在后续部署时使用。</p>
+<h3>模型优化</h3>
+<p>对于嵌入式设备，需要对训练完成的模型进行优化。模型量化是一种有效的优化方法，可以将模型参数从高精度格式（如浮点数）转换为低精度格式（如整数），从而显著减少模型大小并提升推理速度。剪枝技术则可以去除不必要的网络层或节点，进一步提升模型运行效率。这些操作过程中，可能会对模型造成不可逆且效果不定的影响，务必备份好初代模型，不然可能面临又要跑很久模型的问题。</p>
+<hr>
+<h2>模型部署指南</h2>
+<p>目标检测模型的部署需在资源受限的嵌入式设备上实现，同时满足实时性要求。以下是针对模型部署的详细步骤和注意事项：</p>
+<hr>
+<h3>部署工具选择</h3>
+<h4>模型格式转换</h4>
+<p>模型训练完成后，通常会生成特定框架的权重文件（如YOLOv5的<code class="notranslate">.pt</code>文件）。为了提高跨平台兼容性和优化推理速度，建议将模型转换为通用的中间格式，如 <strong>ONNX（Open Neural Network Exchange）</strong>。ONNX格式支持多种框架和推理引擎，可以方便地移植到嵌入式设备。</p>
+<p>转换步骤：</p>
+<ol>
+<li>将训练完成的<code class="notranslate">.pt</code>权重文件使用提供的工具或脚本转换为ONNX格式。</li>
+<li>验证ONNX模型的正确性，确保在PC环境中可以加载并运行。</li>
+</ol>
+<h4>推理引擎选择</h4>
+<p>在嵌入式设备上部署模型，需根据设备硬件特点选择适合的推理引擎：</p>
+<ul>
+<li><strong>OpenCV DNN模块</strong>：适合需要简单实现的场景。OpenCV支持直接加载ONNX格式模型，方便与图像处理功能结合。</li>
+<li><strong>TensorRT</strong>（适用于旭日Pi或其他NVIDIA硬件）：通过进一步优化ONNX模型，极大提升推理速度。</li>
+<li><strong>NCNN</strong>（针对ARM架构优化）：轻量化引擎，适合树莓派等设备。</li>
+<li><strong>其他嵌入式框架</strong>：如MNN、TFLite等，根据需求选择。</li>
+</ul>
+<h4>初期测试建议</h4>
+<p>在初步测试阶段，可以直接使用<code class="notranslate">.pt</code>文件加载模型，快速验证模型性能和检测效果。YOLOv5官方提供了Python接口，可以在PC或嵌入式环境下直接调用，便于调试和结果可视化。</p>
+<hr>
+<h3>推理与结果处理</h3>
+<h4>摄像头数据获取</h4>
+<p>部署目标检测模型的首要任务是实时获取图像数据。嵌入式设备通常通过USB摄像头或板载摄像头模块采集图像。需注意以下几点：</p>
+<ul>
+<li><strong>分辨率设置</strong>：选择合适的分辨率（如640×480），在满足检测精度的同时降低计算负担。</li>
+<li><strong>帧率平衡</strong>：根据设备性能调整帧率，通常保持15-30帧每秒即可。（这是文档写的理想状况，我目前在树莓派4B达到最高3帧每秒，伴有高延迟）</li>
+</ul>
+<h4>数据预处理</h4>
+<p>为提升推理速度和模型精度，需要对图像数据进行预处理：</p>
+<ol>
+<li><strong>尺寸调整</strong>：将图像缩放到模型输入要求的大小（如640×640）。</li>
+<li><strong>颜色归一化</strong>：根据模型预训练要求对像素值进行归一化处理。</li>
+<li><strong>裁剪与增强</strong>：如有特定场景需求，可裁剪无关区域或应用数据增强。</li>
+</ol>
+<h4>推理过程</h4>
+<p>通过加载优化后的模型，逐帧处理图像或视频流：</p>
+<ol>
+<li>将预处理后的图像输入模型进行推理。</li>
+<li>模型返回检测结果，包括目标类别、边界框坐标和置信度。</li>
+</ol>
+<h4>后处理与可视化</h4>
+<p>根据模型输出，进行后处理和结果展示：</p>
+<ol>
+<li><strong>边界框绘制</strong>：将检测到的垃圾类别标注在原图上，使用不同颜色框区分。</li>
+<li><strong>分类信息显示</strong>：为每个检测目标标注类别名称和置信度，提升可读性。</li>
+<li><strong>规则结合</strong>：根据垃圾分类规则，将目标分类映射到具体垃圾桶位置，并提供处理建议。</li>
+</ol>
+<h4>系统优化建议</h4>
+<ul>
+<li><strong>并行处理</strong>：采用多线程或异步技术，实现数据采集、推理、显示并行化。</li>
+<li><strong>计算负载分配</strong>：对于高性能设备（如旭日Pi），利用GPU或NPU进行推理；对于低性能设备（如树莓派），尽量简化模型或减少帧率。</li>
+</ul>
+<hr>
+<h3>模型优化与部署建议</h3>
+<h4>模型优化</h4>
+<ul>
+<li><strong>量化</strong>：使用Post-Training Quantization（PTQ）或Quantization-Aware Training（QAT）将模型从浮点格式（FP32）转为低精度格式（如INT8），以减少模型体积和运算复杂度。</li>
+<li><strong>剪枝</strong>：通过去除不重要的神经元或卷积核，进一步减少模型大小。</li>
+<li><strong>小模型替代</strong>：根据需求选择更轻量化的目标检测模型，如YOLOv5n或MobileNet SSD。</li>
+</ul>
+<h4>部署注意事项</h4>
+<ul>
+<li><strong>温度管理</strong>：嵌入式设备长时间运行可能导致过热，需配备散热装置。</li>
+<li><strong>断电保护</strong>：配置不间断电源（UPS），避免意外断电损坏设备或存储数据。</li>
+<li><strong>性能测试</strong>：在部署前后，测试系统的推理时间、帧率和检测精度，确保满足项目需求。</li>
+</ul>
+<hr>
+<h2>总结</h2>
+<p>加油</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Koi-Blue.github.io">Koi_Blue</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/31/2024"!=""){
+    var startSite=new Date("07/31/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Koi-Blue/Koi-Blue.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>
+
+</html>

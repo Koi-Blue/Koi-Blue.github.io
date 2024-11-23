@@ -110,7 +110,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>模型训练指南</h2>
 <h3>数据集准备</h3>
 <p>智能垃圾分类的关键在于构建高质量的训练数据集。需要收集各类垃圾的图像，并确保数据具有多样性，包括不同的光照条件、背景复杂度和角度变化。</p>
-<p>使用标注工具（可以采用 <a href="https://blog.csdn.net/weixin_43427721/article/details/107122775" rel="nofollow">labelme</a> ，或其他工具，具体可以上浏览器搜搜看）为图像数据添加标签，将其划分为训练集和验证集。标注时需注意精确性，避免标签模糊或错误，从而提高模型训练质量。</p>
+<p>使用标注工具（可以采用 <a href="https://blog.csdn.net/weixin_43427721/article/details/107122775" rel="nofollow">labelme</a> ，或 <a href="https://blog.csdn.net/knighthood2001/article/details/125883343" rel="nofollow">labelimg</a> 等的其他工具，具体可以上浏览器搜搜看，在线工具也可以使用）为图像数据添加标签，将其划分为训练集和验证集。标注时需注意精确性，避免标签模糊或错误，从而提高模型训练质量。</p>
 <h3>模型训练流程</h3>
 <p>模型训练的核心包括数据增强、参数调整和训练过程监控。数据增强能够提高模型的泛化能力，常用方法包括随机裁剪、旋转、亮度调整等。在模型训练的过程中，应关注关键指标，例如精确率、召回率和平均精度（mAP），并根据结果调整学习率、批量大小和网络结构。事实上训练的过程可以依靠官方文档，操作步骤极其简单，比如 <a href="https://github.com/ppogg/YOLOv5-Lite">yolov5-lite</a> 版本，文档中的操作步骤；该操作步骤不包含任何优化，不过yolov5-lite本身就是轻量版，相较于其他模型，更适合在树莓派等的开发板上运行。</p>
 <p>训练完成后，建议保存模型的最佳权重文件，以便在后续部署时使用。</p>

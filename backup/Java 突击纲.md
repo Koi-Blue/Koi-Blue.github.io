@@ -1,5 +1,15 @@
 [![java.png](https://i.postimg.cc/1XMsF5xz/java.png)](https://postimg.cc/kRV03Cgr)
 
+> [!TIP]
+> 全套突击代码上传至 [github](https://github.com/Koi-Blue/repo/tree/main/java_projects) ，可以在线访问
+
+> [!NOTE]
+> 可以通过 `git clone https://github.com/Koi-Blue/repo.git` 下载
+
+> [!NOTE]
+> 也可以通过 [百度网盘](https://pan.baidu.com/s/1YRWmjon139B0BA4S5HecxA?pwd=fish ) 下载
+> 提取码：`fish`
+
 # 第一章
 
 ## Java的特点

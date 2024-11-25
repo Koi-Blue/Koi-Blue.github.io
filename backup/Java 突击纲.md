@@ -1,5 +1,8 @@
 [![java.png](https://i.postimg.cc/1XMsF5xz/java.png)](https://postimg.cc/kRV03Cgr)
 
+> [!CAUTION]
+> 非突击期末不建议看
+
 > [!TIP]
 > 全套突击代码上传至 [github](https://github.com/Koi-Blue/repo/tree/main/java_projects) ，可以在线访问
 

@@ -576,8 +576,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>5.1 异常处理机制简介概述</h2>
 <h3>异常的概念</h3>
 <ul>
-<li><strong>异常</strong>是程序运行时出现的错误情况。Java通过异常处理机制提供了一种优雅的错误处理方式。</li>
-<li><strong>异常分类</strong>：
+<li>
+<p><strong>异常</strong>是程序运行时可能由以下原因引发的错误情况。Java通过异常处理机制提供了一种优雅的错误处理方式。</p>
+<ul>
+<li>试图打开的文件不存在</li>
+<li>网络连接中断</li>
+<li>操作符越界</li>
+<li>要加载的类找不到等</li>
+</ul>
+</li>
+<li>
+<p><strong>异常分类</strong>：</p>
 <ol>
 <li><strong>受检异常（Checked Exception）</strong>：编译器强制要求处理的异常，例如<code class="notranslate">IOException</code>。</li>
 <li><strong>非受检异常（Unchecked Exception）</strong>：运行时异常或错误，例如<code class="notranslate">NullPointerException</code>。</li>
@@ -592,6 +601,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>提供了一种结构化的错误恢复机制。</li>
 </ul>
 <h2>5.2 异常处理</h2>
+<p>Java 异常类体系中定义了很多常见的异常，例如：</p>
+<ul>
+<li>
+<p><code class="notranslate">ArithmeticException</code> ：整数的除零操作将导致该异常的发生，如 <code class="notranslate">int i = 10 / 0</code> 。</p>
+</li>
+<li>
+<p><code class="notranslate">NullPointerException</code> ：当对象没有实例化时，就试图通过该对象的变量访问其数据或方法，例如：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Date</span> <span class="pl-s1">d</span> = <span class="pl-c1">null</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">d</span>.<span class="pl-en">toString</span>());</pre></div>
+</li>
+<li>
+<p><code class="notranslate">ArrayIndexOutOfBoundsException</code> ：数组越界异常。</p>
+</li>
+<li>
+<p><code class="notranslate">IOException</code> ：输入/输出时可能产生的各种异常。</p>
+</li>
+<li>
+<p><code class="notranslate">SecurityException</code> ：一般由浏览器抛出。</p>
+</li>
+</ul>
 <h3><code class="notranslate">try-catch-finally</code> 结构</h3>
 <ul>
 <li><strong>语法</strong>：

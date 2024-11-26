@@ -383,7 +383,12 @@
 
 ## 5.1 异常处理机制简介概述
 ### 异常的概念
-- **异常**是程序运行时出现的错误情况。Java通过异常处理机制提供了一种优雅的错误处理方式。
+- **异常**是程序运行时可能由以下原因引发的错误情况。Java通过异常处理机制提供了一种优雅的错误处理方式。
+  * 试图打开的文件不存在
+  * 网络连接中断
+  * 操作符越界
+  * 要加载的类找不到等
+
 - **异常分类**：
   1. **受检异常（Checked Exception）**：编译器强制要求处理的异常，例如`IOException`。
   2. **非受检异常（Unchecked Exception）**：运行时异常或错误，例如`NullPointerException`。
@@ -395,6 +400,19 @@
 - 提供了一种结构化的错误恢复机制。
 
 ## 5.2 异常处理
+
+Java 异常类体系中定义了很多常见的异常，例如：
+- `ArithmeticException` ：整数的除零操作将导致该异常的发生，如 `int i = 10 / 0` 。
+- `NullPointerException` ：当对象没有实例化时，就试图通过该对象的变量访问其数据或方法，例如：
+
+   ``` Java
+   Date d = null;
+   System.out.println(d.toString());
+   ```
+
+- `ArrayIndexOutOfBoundsException` ：数组越界异常。
+- `IOException` ：输入/输出时可能产生的各种异常。
+- `SecurityException` ：一般由浏览器抛出。
 
 ###  ` try-catch-finally ` 结构
 - **语法**：

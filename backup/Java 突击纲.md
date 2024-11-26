@@ -132,7 +132,8 @@
 ### 子类和父类的关系
 - 父类的属性和方法可以被子类继承。
 - 子类可以重写父类的方法，也可以扩展新的属性和方法。
-
+>[!CAUTION]
+>以下每一个public class要分别创建一个java文件；若希望位于同一java文件，需要删除不含有main方法的class前的public关键字。
    ```java
    // 父类
    public class Parent {

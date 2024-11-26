@@ -13,6 +13,9 @@
 > 也可以通过 [百度网盘](https://pan.baidu.com/s/1YRWmjon139B0BA4S5HecxA?pwd=fish ) 下载
 > 提取码：`fish`
 
+> [!NOTE]
+> 关于 `static` 关键字，[点击跳转](https://koi-blue.github.io/post/Java%20-zhong-%20static%20-guan-jian-zi-de-yong-fa.html)
+
 # 第一章
 
 ## Java的特点

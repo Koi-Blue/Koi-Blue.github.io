@@ -4,7 +4,7 @@
 > 非突击期末不建议看
 
 > [!TIP]
-> 全套突击代码上传至 [github](https://github.com/Koi-Blue/repo/tree/main/java_projects) ，可以在线访问
+> 全套突击代码上传至 [github](https://github.com/Koi-Blue/repo/tree/main/java_projects) 和 [gitee](https://gitee.com/fish_blue/repo) ，可以在线访问
 
 > [!NOTE]
 > 可以通过 `git clone https://github.com/Koi-Blue/repo.git` 下载

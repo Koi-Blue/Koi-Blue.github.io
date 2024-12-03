@@ -135,20 +135,20 @@ sudo make install</pre></div>
 <li>在CMake项目中，配置OpenCV需要设置OpenCV_DIR并通过 <code class="notranslate">find_package</code> 来找到OpenCV。假设我们已经安装了OpenCV库：<br>
 CMakeLists.txt :</li>
 </ul>
-<div class="highlight highlight-source-cmake"><pre class="notranslate"><span class="pl-c1">cmake_minimum_required</span>(<span class="pl-k">VERSION</span> 3.10)
-<span class="pl-c1">project</span>(OpenCVExample)
+<div class="highlight highlight-source-cmake"><pre class="notranslate"><span class="pl-k">cmake_minimum_required</span>(<span class="pl-e">VERSION</span> 3.10)
+<span class="pl-k">project</span>(OpenCVExample)
 
-<span class="pl-c"><span class="pl-c">#</span> 设置C++标准</span>
-<span class="pl-c1">set</span>(CMAKE_CXX_STANDARD 11)
+<span class="pl-c"># 设置C++标准</span>
+<span class="pl-k">set</span>(CMAKE_CXX_STANDARD 11)
 
-<span class="pl-c"><span class="pl-c">#</span> 设置OpenCV的路径（根据安装路径调整）</span>
-<span class="pl-c1">find_package</span>(OpenCV <span class="pl-k">REQUIRED</span>)
+<span class="pl-c"># 设置OpenCV的路径（根据安装路径调整）</span>
+<span class="pl-k">find_package</span>(OpenCV REQUIRED)
 
-<span class="pl-c"><span class="pl-c">#</span> 添加可执行文件</span>
-<span class="pl-c1">add_executable</span>(OpenCVExample main.cpp)
+<span class="pl-c"># 添加可执行文件</span>
+<span class="pl-k">add_executable</span>(OpenCVExample main.cpp)
 
-<span class="pl-c"><span class="pl-c">#</span> 链接OpenCV库</span>
-<span class="pl-c1">target_link_libraries</span>(OpenCVExample <span class="pl-smi">${OpenCV_LIBS}</span>)</pre></div>
+<span class="pl-c"># 链接OpenCV库</span>
+<span class="pl-k">target_link_libraries</span>(OpenCVExample <span class="pl-k">${OpenCV_LIBS}</span>)</pre></div>
 <h2>2. 图像读取与显示</h2>
 <h3>目标 :</h3>
 <ul>

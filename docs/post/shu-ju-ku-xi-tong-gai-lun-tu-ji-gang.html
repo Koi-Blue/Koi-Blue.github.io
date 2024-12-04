@@ -379,6 +379,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>自主存取控制和强制存取控制的区别</strong><br>
 （哪一个是对表本身的控制，等等等）<br>
 $\qquad$ 自主存取控制能够通过授权机制有效地控制对敏感数据的存取。但是由于用户对于数据的存取权限是“自主”的，用户可以自由地决定将数据的存取权限授予何人，以及决定是否也将“授权”的权限授予别人。</p>
+<p><strong>自主存取控制（DAC）：</strong> 由資源擁有者決定誰可以訪問，權限較為靈活。例如：Windows文件權限、SQL中的 <code class="notranslate">GRANT</code> 命令；<br>
+<strong>強制存取控制（MAC）：</strong> 由系統根據預設安全策略強制控制，無法更改。例如：SELinux、Windows的安全性標籤；<br>
+<strong>區別：</strong> DAC由使用者決定權限，MAC由系統控制、安全性較高但不靈活。</p>
 <hr>
 <h1>第五章</h1>
 <p><strong>数据库完整性</strong>（实体完整性、参照完整性、用户自定义完整性）<strong>概念</strong> 和 <strong>程序中创建表或视图时完整性约束</strong>怎么写</p>

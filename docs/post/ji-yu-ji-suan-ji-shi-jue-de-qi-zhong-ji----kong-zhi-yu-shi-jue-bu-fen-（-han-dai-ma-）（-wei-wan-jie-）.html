@@ -195,26 +195,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <span class="pl-k">class</span> <span class="pl-v">StepperMotorControl</span>:
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">port</span><span class="pl-c1">=</span><span class="pl-s">'COM7'</span>, <span class="pl-s1">baudrate</span><span class="pl-c1">=</span><span class="pl-c1">115200</span>): <span class="pl-c"># 这里的port一定要记得修改成正确的接口序号</span>
-        <span class="pl-s1">self</span>.<span class="pl-s1">ser</span> <span class="pl-c1">=</span> <span class="pl-s1">serial</span>.<span class="pl-v">Serial</span>(<span class="pl-s1">port</span>, <span class="pl-s1">baudrate</span>, <span class="pl-s1">timeout</span><span class="pl-c1">=</span><span class="pl-c1">1</span>)
-        <span class="pl-s1">time</span>.<span class="pl-en">sleep</span>(<span class="pl-c1">2</span>)  <span class="pl-c"># 等待串口稳定</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">ser</span> <span class="pl-c1">=</span> <span class="pl-s1">serial</span>.<span class="pl-c1">Serial</span>(<span class="pl-s1">port</span>, <span class="pl-s1">baudrate</span>, <span class="pl-s1">timeout</span><span class="pl-c1">=</span><span class="pl-c1">1</span>)
+        <span class="pl-s1">time</span>.<span class="pl-c1">sleep</span>(<span class="pl-c1">2</span>)  <span class="pl-c"># 等待串口稳定</span>
 
     <span class="pl-k">def</span> <span class="pl-en">send_command</span>(<span class="pl-s1">self</span>, <span class="pl-s1">command</span>):
         <span class="pl-s">"""向Arduino发送9个字符长度的命令"""</span>
         <span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">command</span>) <span class="pl-c1">==</span> <span class="pl-c1">9</span>:
-            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s1">command</span>.<span class="pl-en">encode</span>())
-            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">write</span>(<span class="pl-s">b'<span class="pl-cce">\n</span>'</span>)  <span class="pl-c"># 发送换行符来结束命令</span>
+            <span class="pl-s1">self</span>.<span class="pl-c1">ser</span>.<span class="pl-c1">write</span>(<span class="pl-s1">command</span>.<span class="pl-c1">encode</span>())
+            <span class="pl-s1">self</span>.<span class="pl-c1">ser</span>.<span class="pl-c1">write</span>(<span class="pl-s">b'<span class="pl-cce">\n</span>'</span>)  <span class="pl-c"># 发送换行符来结束命令</span>
             <span class="pl-en">print</span>(<span class="pl-s">f"Sent command: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">command</span><span class="pl-kos">}</span></span>"</span>)
         <span class="pl-k">else</span>:
-            <span class="pl-k">raise</span> <span class="pl-v">ValueError</span>(<span class="pl-s">"Command must be 9 characters long."</span>)
+            <span class="pl-k">raise</span> <span class="pl-en">ValueError</span>(<span class="pl-s">"Command must be 9 characters long."</span>)
 
     <span class="pl-k">def</span> <span class="pl-en">close</span>(<span class="pl-s1">self</span>):
-        <span class="pl-k">if</span> <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-s1">is_open</span>:
-            <span class="pl-s1">self</span>.<span class="pl-s1">ser</span>.<span class="pl-en">close</span>()
+        <span class="pl-k">if</span> <span class="pl-s1">self</span>.<span class="pl-c1">ser</span>.<span class="pl-c1">is_open</span>:
+            <span class="pl-s1">self</span>.<span class="pl-c1">ser</span>.<span class="pl-c1">close</span>()
 
 <span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
-    <span class="pl-s1">stepper</span> <span class="pl-c1">=</span> <span class="pl-v">StepperMotorControl</span>()
-    <span class="pl-s1">stepper</span>.<span class="pl-en">send_command</span>(<span class="pl-s">"010002000"</span>)
-    <span class="pl-s1">stepper</span>.<span class="pl-en">close</span>()</pre></div>
+    <span class="pl-s1">stepper</span> <span class="pl-c1">=</span> <span class="pl-en">StepperMotorControl</span>()
+    <span class="pl-s1">stepper</span>.<span class="pl-c1">send_command</span>(<span class="pl-s">"010002000"</span>)
+    <span class="pl-s1">stepper</span>.<span class="pl-c1">close</span>()</pre></div>
 <p>    这段python代码很简单，只实现一个功能：把一个来自于用户输入的9位数字发送给下位机。</p>
 <blockquote>
 <p>if <strong>name</strong> == "<strong>main</strong>":<br>

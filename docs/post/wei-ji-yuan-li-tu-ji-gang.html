@@ -10,17 +10,13 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# 计算机组成原理与嵌入式系统
-
-## 第一章 从源程序到可执行程序及基础概念
+<meta name="description" content="## 第一章
 
 ### 4页 从源程序到能够被计算机执行的程序（以C语言程序为例）
 
 1. **预处理**：在编译器开始实际编译之前，预处理器会根据源代码中的指令（如`#include`、`#define`等）进行文本替换和文件包含操作。">
 <meta property="og:title" content="微机原理突击纲">
-<meta property="og:description" content="# 计算机组成原理与嵌入式系统
-
-## 第一章 从源程序到可执行程序及基础概念
+<meta property="og:description" content="## 第一章
 
 ### 4页 从源程序到能够被计算机执行的程序（以C语言程序为例）
 
@@ -85,8 +81,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>计算机组成原理与嵌入式系统</h1>
-<h2>第一章 从源程序到可执行程序及基础概念</h2>
+<div class="markdown-body" id="postBody"><h2>第一章</h2>
 <h3>4页 从源程序到能够被计算机执行的程序（以C语言程序为例）</h3>
 <ol>
 <li><strong>预处理</strong>：在编译器开始实际编译之前，预处理器会根据源代码中的指令（如<code class="notranslate">#include</code>、<code class="notranslate">#define</code>等）进行文本替换和文件包含操作。最终生成一个融合了头文件内容的纯C语言程序文本文件（<code class="notranslate">.i</code>）。</li>
@@ -134,7 +129,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>44页 三八译码器</h3>
 <p>三八译码器（3-to-8 Line Decoder）是一种常用的数字电路，用于将3位二进制输入转换为8个单独的输出线。它的主要功能是根据输入的3位二进制码选择一个对应的输出线激活（高电平），其余输出线保持低电平。三八译码器通常具有使能端（Enable），只有当使能端为有效状态时，译码器才会工作。常见的应用包括地址译码、控制信号分配等。</p>
-<h2>第二章 处理器架构</h2>
+<h2>第二章</h2>
 <h3>53页 多核技术</h3>
 <p>多核技术是指在一个处理器芯片内部集成多个独立的核心（Core），每个核心都可以独立执行程序。多核处理器的优点包括：</p>
 <ul>
@@ -189,7 +184,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>控制总线</strong>：包括读/写信号（RD、WR）、中断请求（INT）、复位信号（RESET）等，用于控制处理器的行为。</li>
 <li><strong>等待周期（TW）</strong>：当外部设备无法及时响应时，处理器会插入等待周期，以确保数据传输的正确性。</li>
 </ul>
-<h2>第三章 指令集与寻址方式</h2>
+<h2>第三章</h2>
 <h3>114页 寻址方式</h3>
 <p>寻址方式决定了如何获取指令的操作数。常见的寻址方式包括：</p>
 <ul>
@@ -282,7 +277,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>203页 2 的4567</h3>
 <p>这部分内容需要详细回答。</p>
-<h2>第五章 存储器</h2>
+<h2>第五章</h2>
 <h3>226页 6264芯片</h3>
 <p>6264是一款静态随机存取存储器（SRAM），具有8K×8的存储容量。它的地址线为A0-A12（共13根），可以寻址8192个地址；数据线为D0-D7（共8根），每次可以读写8位数据。SRAM的特点是速度快、无需刷新，但功耗较高，适合用于缓存或高速缓冲区。</p>
 <h3>230页 DRAM刷新</h3>
@@ -320,7 +315,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>例5-7 计算存储器的容量。公式为：<code class="notranslate">容量 = (末地址 - 首地址 + 1)</code>。理解存储器地址空间的计算方法。</p>
 <h3>259页 作业第七题</h3>
 <p>作业第七题要求将一个较大的存储器系统分成若干组，每组包含多个存储器芯片，计算总共需要多少片芯片。</p>
-<h2>第六章 输入输出系统</h2>
+<h2>第六章</h2>
 <h3>265页 IO端口编址</h3>
 <p>IO端口编址是指为I/O设备分配唯一的地址，以便CPU能够正确访问这些设备。常见的IO端口编址方式包括：</p>
 <ul>
@@ -367,7 +362,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>294页 级联工作方式</h3>
 <p>级联工作方式是指通过多个8259芯片的级联，扩展系统的中断处理能力。例如，4片8259芯片可以管理29个中断源（4×8−3）。级联工作方式的实现涉及到主从关系的配置、中断优先级的设定以及中断传递的机制。</p>
-<h2>第七章 定时器与接口电路</h2>
+<h2>第七章</h2>
 <h3>8253/8255</h3>
 <p>8253是一款可编程定时器/计数器，广泛应用于定时、延时、频率测量等场景。8255是一款可编程并行接口芯片，用于实现CPU与外部设备之间的并行数据传输。两者都是嵌入式系统中常用的重要组件。</p>
 <h3>326页 8253方式3</h3>

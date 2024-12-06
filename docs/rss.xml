@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>:&gt;</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Fri, 06 Dec 2024 01:43:58 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>微机原理突击纲</title><link>https://Koi-Blue.github.io/post/wei-ji-yuan-li-tu-ji-gang.html</link><description># 计算机组成原理与嵌入式系统&#13;
-&#13;
-## 第一章 从源程序到可执行程序及基础概念&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>:&gt;</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Fri, 06 Dec 2024 01:55:40 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>微机原理突击纲</title><link>https://Koi-Blue.github.io/post/wei-ji-yuan-li-tu-ji-gang.html</link><description>## 第一章&#13;
 &#13;
 ### 4页 从源程序到能够被计算机执行的程序（以C语言程序为例）&#13;
 &#13;

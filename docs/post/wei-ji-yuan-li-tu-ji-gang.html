@@ -440,6 +440,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>236(?)页 SRAM（特点）   DRAM</h3>
 <h3>239页 EEPROM擦除</h3>
 <p>EEPROM的擦除操作是通过施加特定的电压或电流来实现的。擦除过程通常比编程过程慢得多，且有一定的寿命限制（如10万次擦写周期）。擦除操作可以针对整个芯片或单个字节进行，具体取决于EEPROM的类型和设计。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/09b2ad860968021031ee601347ecb88e31cbef1a3b0155e6771565385a01640e/68747470733a2f2f7777772e68656c6c6f696d672e636f6d2f692f323032342f31322f31302f363735383230393461303261632e706e67"><img src="https://camo.githubusercontent.com/09b2ad860968021031ee601347ecb88e31cbef1a3b0155e6771565385a01640e/68747470733a2f2f7777772e68656c6c6f696d672e636f6d2f692f323032342f31322f31302f363735383230393461303261632e706e67" alt="1733828758439.png" data-canonical-src="https://www.helloimg.com/i/2024/12/10/67582094a02ac.png" style="max-width: 100%;"></a></p>
 <h3>244页 存储器扩展技术</h3>
 <p>存储器扩展技术用于增加系统的存储容量，常见的扩展方式包括：</p>
 <ul>
@@ -626,7 +627,11 @@ console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 
 <script>
 document.getElementById("pathHome").setAttribute("d",IconList["home"]);
 document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
-
+cmButton=document.getElementById("cmButton");
+    span=document.createElement("span");
+    span.setAttribute("class","Counter");
+    span.innerHTML="1";
+    cmButton.appendChild(span);
 
 
 function openComments(){

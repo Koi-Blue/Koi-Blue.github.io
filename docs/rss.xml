@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>:&gt;</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Fri, 06 Dec 2024 01:55:40 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>微机原理突击纲</title><link>https://Koi-Blue.github.io/post/wei-ji-yuan-li-tu-ji-gang.html</link><description>## 第一章&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Koi_Blue</title><link>https://Koi-Blue.github.io</link><description>:&gt;</description><copyright>Koi_Blue</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/182211636?v=4</url><title>avatar</title><link>https://Koi-Blue.github.io</link></image><lastBuildDate>Tue, 10 Dec 2024 07:33:40 +0000</lastBuildDate><managingEditor>Koi_Blue</managingEditor><ttl>60</ttl><webMaster>Koi_Blue</webMaster><item><title>微机原理突击纲</title><link>https://Koi-Blue.github.io/post/wei-ji-yuan-li-tu-ji-gang.html</link><description>![微机导图.png](https://www.helloimg.com/i/2024/12/10/6757ee916722d.png)&#13;
+&#13;
+## 第一章&#13;
 &#13;
 ### 4页 从源程序到能够被计算机执行的程序（以C语言程序为例）&#13;
 &#13;

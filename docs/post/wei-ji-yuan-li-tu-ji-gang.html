@@ -519,11 +519,104 @@ $$</p>
 <li><strong>控制寄存器</strong>：用于配置接口的工作模式和状态。</li>
 </ul>
 <h3>272页 基本输入输出方式</h3>
+<h4>1. 无条件传送</h4>
 <ul>
-<li>无条件传送</li>
-<li>查询</li>
-<li>中断控制</li>
-<li>直接存储器访问</li>
+<li><strong>概念</strong>：直接将数据从 CPU 传送到 I/O 设备，或从 I/O 设备传送到 CPU，没有任何条件判断。</li>
+<li><strong>特点</strong>：
+<ul>
+<li><strong>简单直接</strong>：无需判断设备状态。</li>
+<li><strong>低效</strong>：设备可能未准备好接收/发送数据，但 CPU 仍强制进行操作。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：通常用于简单设备（如灯光控制）或对速度要求较低的情况。</li>
+</ul>
+<hr>
+<h4>2. 查询</h4>
+<ul>
+<li><strong>概念</strong>：CPU 通过轮询方式反复检查 I/O 设备的状态，当设备准备好后，再传输数据。</li>
+<li><strong>特点</strong>：
+<ul>
+<li><strong>CPU 主动</strong>：CPU 需要不断查询设备状态，直到设备准备就绪。</li>
+<li><strong>效率低</strong>：在等待期间 CPU 会被占用。</li>
+</ul>
+</li>
+<li><strong>典型实现</strong>：使用状态寄存器：
+<ul>
+<li>CPU 读取设备状态位。</li>
+<li>检测设备是否准备好传输数据。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：适合低速设备或场景较少的外设。</li>
+</ul>
+<hr>
+<h4>3. 中断控制</h4>
+<ul>
+<li><strong>概念</strong>：由 I/O 设备主动向 CPU 发出中断请求，通知 CPU 准备传输数据。</li>
+<li><strong>特点</strong>：
+<ul>
+<li><strong>设备主动</strong>：I/O 设备控制数据传输的时机，CPU 只在需要时响应。</li>
+<li><strong>效率高</strong>：CPU 不需要轮询设备，能够专注于其他任务。</li>
+<li><strong>中断响应流程</strong>：CPU 暂停当前任务，跳转到中断服务程序（ISR）处理 I/O 操作。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：高效数据传输，适合速度较高的设备或实时性要求较高的场景。</li>
+</ul>
+<hr>
+<h4>4. 直接存储器访问（DMA）</h4>
+<ul>
+<li><strong>概念</strong>：通过 DMA 控制器，直接将 I/O 设备的数据传输到内存，或将内存数据传输到设备，而不需要 CPU 的参与。</li>
+<li><strong>特点</strong>：
+<ul>
+<li><strong>CPU 减负</strong>：DMA 控制器负责数据传输，CPU 只需设置 DMA 参数。</li>
+<li><strong>速度快</strong>：适合大批量数据传输。</li>
+</ul>
+</li>
+<li><strong>应用场景</strong>：用于高速设备（如硬盘、显卡）与内存之间的大量数据交换。</li>
+</ul>
+<hr>
+<h4>对比重点</h4>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>方式</strong></th>
+<th><strong>数据传输控制</strong></th>
+<th><strong>效率</strong></th>
+<th><strong>应用场景</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无条件传送</td>
+<td>无判断</td>
+<td>最低</td>
+<td>简单设备，控制需求较低</td>
+</tr>
+<tr>
+<td>查询</td>
+<td>CPU 主动</td>
+<td>低</td>
+<td>低速设备，状态简单</td>
+</tr>
+<tr>
+<td>中断控制</td>
+<td>设备主动</td>
+<td>高</td>
+<td>高速设备，实时性较高</td>
+</tr>
+<tr>
+<td>直接存储器访问</td>
+<td>DMA 控制器</td>
+<td>最高</td>
+<td>高速设备，大量数据传输</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h4>总结重点</h4>
+<ul>
+<li><strong>效率层级</strong>：无条件传送 &lt; 查询 &lt; 中断控制 &lt; DMA。</li>
+<li><strong>灵活性</strong>：中断和 DMA 更灵活，但硬件要求更高。</li>
+<li><strong>适用场景</strong>：根据设备速度和数据量选择适当的方式。</li>
 </ul>
 <h3>276页 DMA控制功能</h3>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9ad46f677066bfb152eee48110de9d85ee55bfbad0104ba5667f572597cb0d39/68747470733a2f2f7777772e68656c6c6f696d672e636f6d2f692f323032342f31322f31312f363735393334343232373436312e706e67"><img src="https://camo.githubusercontent.com/9ad46f677066bfb152eee48110de9d85ee55bfbad0104ba5667f572597cb0d39/68747470733a2f2f7777772e68656c6c6f696d672e636f6d2f692f323032342f31322f31312f363735393334343232373436312e706e67" alt="1733899335826.png" data-canonical-src="https://www.helloimg.com/i/2024/12/11/6759344227461.png" style="max-width: 100%;"></a></p>

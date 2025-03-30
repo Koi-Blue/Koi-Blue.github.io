@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark-blue" data-light-theme="dark" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/182211636?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="> [!NOTE]
+> 诸多bug慢慢修
+
+> [!Caution]
+> 认真工作哦
+
+> 注：
+> 代码copy后修改后缀即食；急转弯有bug，有概率会死掉
+
+> 还有一件事：
+> 默认方向向右，小心撞墙
+
+``` html
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>pusipusi</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #gameCanvas {
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #difficulty {
+            padding: 8px;
+            font-size: 16px;
+        }
+        .info {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>工作累了，吃个蛇蛇</h1>
+    <div class='controls'>
+        <select id='difficulty'>
+            <option value='easy'>Eeeasy</option>
+            <option value='normal' selected>Normal</option>
+            <option value='hard'>Diiiificult</option>
+        </select>
+        <button onclick='startGame()'>start game</button>
+    </div>
+    <div class='info'>
+        得分: <span id='score'>0</span> | 
+        难度: <span id='currentDifficulty'>Normal</span>
+    </div>
+    <canvas id='gameCanvas' width='400' height='400'></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        
+        let snake = [];
+        let food = {};
+        let dx = 1;  // 默认初始方向哦
+        let dy = 0;  //配合dx修改四个默认初始方向
+        let score = 0;
+        let gameLoop;
+        let speed = 150;
+        
+        const difficultySettings = {
+            easy: { speed: 200, color: '#4CAF50' },
+            normal: { speed: 150, color: '#FF9800' },
+            hard: { speed: 100, color: '#F44336' }
+        };
+
+        function startGame() {
+            clearInterval(gameLoop);
+            snake = [{x: 10, y: 10}];
+            score = 0;
+            dx = 1;  // 初始方向
+            dy = 0;
+            document.getElementById('score').textContent = score;
+            
+            const difficulty = document.getElementById('difficulty').value;
+            speed = difficultySettings[difficulty].speed;
+            document.getElementById('currentDifficulty').textContent = 
+                document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
+            
+            generateFood();
+            gameLoop = setInterval(update, speed);
+        }
+
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                }
+            }
+        }
+
+        function update() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            
+            // 在边界吗
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                gameOver();
+                return;
+            }
+            
+            // 自碰了吗
+            for (let segment of snake) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            snake.unshift(head);
+            
+            // 吃食物logic
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                document.getElementById('score').textContent = score;
+                generateFood();
+            } else {
+                snake.pop();
+            }
+            
+            draw();
+        }
+
+        function draw() {
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 蛇蛇
+            const difficulty = document.getElementById('difficulty').value;
+            ctx.fillStyle = difficultySettings[difficulty].color;
+            for (let segment of snake) {
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize-2, gridSize-2);
+            }
+            
+            // 果果
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize-2, gridSize-2);
+        }
+
+        function gameOver() {
+            clearInterval(gameLoop);
+            alert(`游戏结束咯，得分: ${score}`);
+        }
+
+        // 方向控制
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (dy === 0) { dx = 0; dy = -1; }
+                    break;
+                case 'ArrowDown':
+                    if (dy === 0) { dx = 0; dy = 1; }
+                    break;
+                case 'ArrowLeft':
+                    if (dx === 0) { dx = -1; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                    if (dx === 0) { dx = 1; dy = 0; }
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
+```。">
+<meta property="og:title" content="蛇蛇---工作累了吃个蛇">
+<meta property="og:description" content="> [!NOTE]
+> 诸多bug慢慢修
+
+> [!Caution]
+> 认真工作哦
+
+> 注：
+> 代码copy后修改后缀即食；急转弯有bug，有概率会死掉
+
+> 还有一件事：
+> 默认方向向右，小心撞墙
+
+``` html
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>pusipusi</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #gameCanvas {
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #difficulty {
+            padding: 8px;
+            font-size: 16px;
+        }
+        .info {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>工作累了，吃个蛇蛇</h1>
+    <div class='controls'>
+        <select id='difficulty'>
+            <option value='easy'>Eeeasy</option>
+            <option value='normal' selected>Normal</option>
+            <option value='hard'>Diiiificult</option>
+        </select>
+        <button onclick='startGame()'>start game</button>
+    </div>
+    <div class='info'>
+        得分: <span id='score'>0</span> | 
+        难度: <span id='currentDifficulty'>Normal</span>
+    </div>
+    <canvas id='gameCanvas' width='400' height='400'></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        
+        let snake = [];
+        let food = {};
+        let dx = 1;  // 默认初始方向哦
+        let dy = 0;  //配合dx修改四个默认初始方向
+        let score = 0;
+        let gameLoop;
+        let speed = 150;
+        
+        const difficultySettings = {
+            easy: { speed: 200, color: '#4CAF50' },
+            normal: { speed: 150, color: '#FF9800' },
+            hard: { speed: 100, color: '#F44336' }
+        };
+
+        function startGame() {
+            clearInterval(gameLoop);
+            snake = [{x: 10, y: 10}];
+            score = 0;
+            dx = 1;  // 初始方向
+            dy = 0;
+            document.getElementById('score').textContent = score;
+            
+            const difficulty = document.getElementById('difficulty').value;
+            speed = difficultySettings[difficulty].speed;
+            document.getElementById('currentDifficulty').textContent = 
+                document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
+            
+            generateFood();
+            gameLoop = setInterval(update, speed);
+        }
+
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                }
+            }
+        }
+
+        function update() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            
+            // 在边界吗
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                gameOver();
+                return;
+            }
+            
+            // 自碰了吗
+            for (let segment of snake) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            snake.unshift(head);
+            
+            // 吃食物logic
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                document.getElementById('score').textContent = score;
+                generateFood();
+            } else {
+                snake.pop();
+            }
+            
+            draw();
+        }
+
+        function draw() {
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 蛇蛇
+            const difficulty = document.getElementById('difficulty').value;
+            ctx.fillStyle = difficultySettings[difficulty].color;
+            for (let segment of snake) {
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize-2, gridSize-2);
+            }
+            
+            // 果果
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize-2, gridSize-2);
+        }
+
+        function gameOver() {
+            clearInterval(gameLoop);
+            alert(`游戏结束咯，得分: ${score}`);
+        }
+
+        // 方向控制
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (dy === 0) { dx = 0; dy = -1; }
+                    break;
+                case 'ArrowDown':
+                    if (dy === 0) { dx = 0; dy = 1; }
+                    break;
+                case 'ArrowLeft':
+                    if (dx === 0) { dx = -1; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                    if (dx === 0) { dx = 1; dy = 0; }
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
+```。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Koi-Blue.github.io/post/she-she-----gong-zuo-lei-le-chi-ge-she.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/182211636?v=4">
+<title>蛇蛇---工作累了吃个蛇</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-note {border-left-color:var(--borderColor-accent-emphasis, var(--color-accent-emphasis));background-color:var(--color-accent-subtle);}.markdown-alert.markdown-alert-note .markdown-alert-title {color: var(--fgColor-accent,var(--color-accent-fg));}</style><style>.markdown-alert.markdown-alert-caution {border-left-color:var(--borderColor-danger-emphasis, var(--color-danger-emphasis));background-color:var(--color-danger-subtle);}.markdown-alert.markdown-alert-caution .markdown-alert-title {color: var(--fgColor-danger,var(--color-danger-fg));}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">蛇蛇---工作累了吃个蛇</h1>
+<div class="title-right">
+    <a href="https://Koi-Blue.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Koi-Blue/Koi-Blue.github.io/issues/25" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>诸多bug慢慢修</p>
+</div>
+<div class="markdown-alert markdown-alert-caution"><p class="markdown-alert-title"><svg class="octicon octicon-stop mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p><p>认真工作哦</p>
+</div>
+<blockquote>
+<p>注：<br>
+代码copy后修改后缀即食；急转弯有bug，有概率会死掉</p>
+</blockquote>
+<blockquote>
+<p>还有一件事：<br>
+默认方向向右，小心撞墙</p>
+</blockquote>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate"><span class="pl-c1">&lt;!DOCTYPE html<span class="pl-kos">&gt;</span></span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">html</span> <span class="pl-c1">lang</span>="<span class="pl-s">en</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">meta</span> <span class="pl-c1">charset</span>="<span class="pl-s">UTF-8</span>"<span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>pusipusi<span class="pl-kos">&lt;/</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">style</span><span class="pl-kos">&gt;</span>
+        <span class="pl-ent">body</span> {
+            <span class="pl-c1">display</span><span class="pl-kos">:</span> flex;
+            <span class="pl-c1">flex-direction</span><span class="pl-kos">:</span> column;
+            <span class="pl-c1">align-items</span><span class="pl-kos">:</span> center;
+            <span class="pl-c1">background-color</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>f0f0f0</span>;
+            <span class="pl-c1">font-family</span><span class="pl-kos">:</span> Arial<span class="pl-kos">,</span> sans-serif;
+        }
+        <span class="pl-kos">#</span><span class="pl-c1">gameCanvas</span> {
+            <span class="pl-c1">border</span><span class="pl-kos">:</span> <span class="pl-c1">2<span class="pl-smi">px</span></span> solid <span class="pl-pds"><span class="pl-kos">#</span>333</span>;
+            <span class="pl-c1">background-color</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>fff</span>;
+        }
+        .<span class="pl-c1">controls</span> {
+            <span class="pl-c1">margin</span><span class="pl-kos">:</span> <span class="pl-c1">20<span class="pl-smi">px</span></span> <span class="pl-c1">0</span>;
+            <span class="pl-c1">display</span><span class="pl-kos">:</span> flex;
+            <span class="pl-c1">gap</span><span class="pl-kos">:</span> <span class="pl-c1">20<span class="pl-smi">px</span></span>;
+        }
+        <span class="pl-ent">button</span> {
+            <span class="pl-c1">padding</span><span class="pl-kos">:</span> <span class="pl-c1">10<span class="pl-smi">px</span></span> <span class="pl-c1">20<span class="pl-smi">px</span></span>;
+            <span class="pl-c1">font-size</span><span class="pl-kos">:</span> <span class="pl-c1">16<span class="pl-smi">px</span></span>;
+            <span class="pl-c1">cursor</span><span class="pl-kos">:</span> pointer;
+            <span class="pl-c1">background-color</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>4CAF50</span>;
+            <span class="pl-c1">color</span><span class="pl-kos">:</span> white;
+            <span class="pl-c1">border</span><span class="pl-kos">:</span> none;
+            <span class="pl-c1">border-radius</span><span class="pl-kos">:</span> <span class="pl-c1">5<span class="pl-smi">px</span></span>;
+        }
+        <span class="pl-ent">button</span><span class="pl-kos">:</span><span class="pl-c1">hover</span> {
+            <span class="pl-c1">background-color</span><span class="pl-kos">:</span> <span class="pl-pds"><span class="pl-kos">#</span>45a049</span>;
+        }
+        <span class="pl-kos">#</span><span class="pl-c1">difficulty</span> {
+            <span class="pl-c1">padding</span><span class="pl-kos">:</span> <span class="pl-c1">8<span class="pl-smi">px</span></span>;
+            <span class="pl-c1">font-size</span><span class="pl-kos">:</span> <span class="pl-c1">16<span class="pl-smi">px</span></span>;
+        }
+        .<span class="pl-c1">info</span> {
+            <span class="pl-c1">margin</span><span class="pl-kos">:</span> <span class="pl-c1">10<span class="pl-smi">px</span></span> <span class="pl-c1">0</span>;
+            <span class="pl-c1">font-size</span><span class="pl-kos">:</span> <span class="pl-c1">18<span class="pl-smi">px</span></span>;
+        }
+    <span class="pl-kos">&lt;/</span><span class="pl-ent">style</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">h1</span><span class="pl-kos">&gt;</span>工作累了，吃个蛇蛇<span class="pl-kos">&lt;/</span><span class="pl-ent">h1</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">class</span>="<span class="pl-s">controls</span>"<span class="pl-kos">&gt;</span>
+        <span class="pl-kos">&lt;</span><span class="pl-ent">select</span> <span class="pl-c1">id</span>="<span class="pl-s">difficulty</span>"<span class="pl-kos">&gt;</span>
+            <span class="pl-kos">&lt;</span><span class="pl-ent">option</span> <span class="pl-c1">value</span>="<span class="pl-s">easy</span>"<span class="pl-kos">&gt;</span>Eeeasy<span class="pl-kos">&lt;/</span><span class="pl-ent">option</span><span class="pl-kos">&gt;</span>
+            <span class="pl-kos">&lt;</span><span class="pl-ent">option</span> <span class="pl-c1">value</span>="<span class="pl-s">normal</span>" <span class="pl-c1">selected</span><span class="pl-kos">&gt;</span>Normal<span class="pl-kos">&lt;/</span><span class="pl-ent">option</span><span class="pl-kos">&gt;</span>
+            <span class="pl-kos">&lt;</span><span class="pl-ent">option</span> <span class="pl-c1">value</span>="<span class="pl-s">hard</span>"<span class="pl-kos">&gt;</span>Diiiificult<span class="pl-kos">&lt;/</span><span class="pl-ent">option</span><span class="pl-kos">&gt;</span>
+        <span class="pl-kos">&lt;/</span><span class="pl-ent">select</span><span class="pl-kos">&gt;</span>
+        <span class="pl-kos">&lt;</span><span class="pl-ent">button</span> <span class="pl-c1">onclick</span>="<span class="pl-s">startGame()</span>"<span class="pl-kos">&gt;</span>start game<span class="pl-kos">&lt;/</span><span class="pl-ent">button</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">div</span> <span class="pl-c1">class</span>="<span class="pl-s">info</span>"<span class="pl-kos">&gt;</span>
+        得分: <span class="pl-kos">&lt;</span><span class="pl-ent">span</span> <span class="pl-c1">id</span>="<span class="pl-s">score</span>"<span class="pl-kos">&gt;</span>0<span class="pl-kos">&lt;/</span><span class="pl-ent">span</span><span class="pl-kos">&gt;</span> | 
+        难度: <span class="pl-kos">&lt;</span><span class="pl-ent">span</span> <span class="pl-c1">id</span>="<span class="pl-s">currentDifficulty</span>"<span class="pl-kos">&gt;</span>Normal<span class="pl-kos">&lt;/</span><span class="pl-ent">span</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;/</span><span class="pl-ent">div</span><span class="pl-kos">&gt;</span>
+    <span class="pl-kos">&lt;</span><span class="pl-ent">canvas</span> <span class="pl-c1">id</span>="<span class="pl-s">gameCanvas</span>" <span class="pl-c1">width</span>="<span class="pl-s">400</span>" <span class="pl-c1">height</span>="<span class="pl-s">400</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">canvas</span><span class="pl-kos">&gt;</span>
+
+    <span class="pl-kos">&lt;</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+        <span class="pl-k">const</span> <span class="pl-s1">canvas</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'gameCanvas'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-k">const</span> <span class="pl-s1">ctx</span> <span class="pl-c1">=</span> <span class="pl-s1">canvas</span><span class="pl-kos">.</span><span class="pl-en">getContext</span><span class="pl-kos">(</span><span class="pl-s">'2d'</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-k">const</span> <span class="pl-s1">gridSize</span> <span class="pl-c1">=</span> <span class="pl-c1">20</span><span class="pl-kos">;</span>
+        <span class="pl-k">const</span> <span class="pl-s1">tileCount</span> <span class="pl-c1">=</span> <span class="pl-s1">canvas</span><span class="pl-kos">.</span><span class="pl-c1">width</span> <span class="pl-c1">/</span> <span class="pl-s1">gridSize</span><span class="pl-kos">;</span>
+        
+        <span class="pl-k">let</span> <span class="pl-s1">snake</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-k">let</span> <span class="pl-s1">food</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span><span class="pl-kos">}</span><span class="pl-kos">;</span>
+        <span class="pl-k">let</span> <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span>  <span class="pl-c">// 默认初始方向哦</span>
+        <span class="pl-k">let</span> <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>  <span class="pl-c">//配合dx修改四个默认初始方向</span>
+        <span class="pl-k">let</span> <span class="pl-s1">score</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
+        <span class="pl-k">let</span> <span class="pl-s1">gameLoop</span><span class="pl-kos">;</span>
+        <span class="pl-k">let</span> <span class="pl-s1">speed</span> <span class="pl-c1">=</span> <span class="pl-c1">150</span><span class="pl-kos">;</span>
+        
+        <span class="pl-k">const</span> <span class="pl-s1">difficultySettings</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span>
+            <span class="pl-c1">easy</span>: <span class="pl-kos">{</span> <span class="pl-c1">speed</span>: <span class="pl-c1">200</span><span class="pl-kos">,</span> <span class="pl-c1">color</span>: <span class="pl-s">'#4CAF50'</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
+            <span class="pl-c1">normal</span>: <span class="pl-kos">{</span> <span class="pl-c1">speed</span>: <span class="pl-c1">150</span><span class="pl-kos">,</span> <span class="pl-c1">color</span>: <span class="pl-s">'#FF9800'</span> <span class="pl-kos">}</span><span class="pl-kos">,</span>
+            <span class="pl-c1">hard</span>: <span class="pl-kos">{</span> <span class="pl-c1">speed</span>: <span class="pl-c1">100</span><span class="pl-kos">,</span> <span class="pl-c1">color</span>: <span class="pl-s">'#F44336'</span> <span class="pl-kos">}</span>
+        <span class="pl-kos">}</span><span class="pl-kos">;</span>
+
+        <span class="pl-k">function</span> <span class="pl-en">startGame</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-en">clearInterval</span><span class="pl-kos">(</span><span class="pl-s1">gameLoop</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-s1">snake</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-kos">{</span><span class="pl-c1">x</span>: <span class="pl-c1">10</span><span class="pl-kos">,</span> <span class="pl-c1">y</span>: <span class="pl-c1">10</span><span class="pl-kos">}</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+            <span class="pl-s1">score</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
+            <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span>  <span class="pl-c">// 初始方向</span>
+            <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
+            <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'score'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">textContent</span> <span class="pl-c1">=</span> <span class="pl-s1">score</span><span class="pl-kos">;</span>
+            
+            <span class="pl-k">const</span> <span class="pl-s1">difficulty</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'difficulty'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">value</span><span class="pl-kos">;</span>
+            <span class="pl-s1">speed</span> <span class="pl-c1">=</span> <span class="pl-s1">difficultySettings</span><span class="pl-kos">[</span><span class="pl-s1">difficulty</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">speed</span><span class="pl-kos">;</span>
+            <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'currentDifficulty'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">textContent</span> <span class="pl-c1">=</span> 
+                <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'difficulty'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">options</span><span class="pl-kos">[</span><span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'difficulty'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">selectedIndex</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">text</span><span class="pl-kos">;</span>
+            
+            <span class="pl-en">generateFood</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-s1">gameLoop</span> <span class="pl-c1">=</span> <span class="pl-en">setInterval</span><span class="pl-kos">(</span><span class="pl-s1">update</span><span class="pl-kos">,</span> <span class="pl-s1">speed</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+
+        <span class="pl-k">function</span> <span class="pl-en">generateFood</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-s1">food</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span>
+                <span class="pl-c1">x</span>: <span class="pl-v">Math</span><span class="pl-kos">.</span><span class="pl-en">floor</span><span class="pl-kos">(</span><span class="pl-v">Math</span><span class="pl-kos">.</span><span class="pl-en">random</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">*</span> <span class="pl-s1">tileCount</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+                <span class="pl-c1">y</span>: <span class="pl-v">Math</span><span class="pl-kos">.</span><span class="pl-en">floor</span><span class="pl-kos">(</span><span class="pl-v">Math</span><span class="pl-kos">.</span><span class="pl-en">random</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">*</span> <span class="pl-s1">tileCount</span><span class="pl-kos">)</span>
+            <span class="pl-kos">}</span><span class="pl-kos">;</span>
+            <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">segment</span> <span class="pl-k">of</span> <span class="pl-s1">snake</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">===</span> <span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">===</span> <span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">y</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                    <span class="pl-en">generateFood</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+                <span class="pl-kos">}</span>
+            <span class="pl-kos">}</span>
+        <span class="pl-kos">}</span>
+
+        <span class="pl-k">function</span> <span class="pl-en">update</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-k">const</span> <span class="pl-s1">head</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span><span class="pl-c1">x</span>: <span class="pl-s1">snake</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">+</span> <span class="pl-s1">dx</span><span class="pl-kos">,</span> <span class="pl-c1">y</span>: <span class="pl-s1">snake</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">+</span> <span class="pl-s1">dy</span><span class="pl-kos">}</span><span class="pl-kos">;</span>
+            
+            <span class="pl-c">// 在边界吗</span>
+            <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">tileCount</span> <span class="pl-c1">||</span> <span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">0</span> <span class="pl-c1">||</span> <span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">&gt;=</span> <span class="pl-s1">tileCount</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-en">gameOver</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+                <span class="pl-k">return</span><span class="pl-kos">;</span>
+            <span class="pl-kos">}</span>
+            
+            <span class="pl-c">// 自碰了吗</span>
+            <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">segment</span> <span class="pl-k">of</span> <span class="pl-s1">snake</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">===</span> <span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">===</span> <span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">y</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                    <span class="pl-en">gameOver</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+                    <span class="pl-k">return</span><span class="pl-kos">;</span>
+                <span class="pl-kos">}</span>
+            <span class="pl-kos">}</span>
+            
+            <span class="pl-s1">snake</span><span class="pl-kos">.</span><span class="pl-en">unshift</span><span class="pl-kos">(</span><span class="pl-s1">head</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            
+            <span class="pl-c">// 吃食物logic</span>
+            <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">===</span> <span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">head</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">===</span> <span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">y</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-s1">score</span> <span class="pl-c1">+=</span> <span class="pl-c1">10</span><span class="pl-kos">;</span>
+                <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'score'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">textContent</span> <span class="pl-c1">=</span> <span class="pl-s1">score</span><span class="pl-kos">;</span>
+                <span class="pl-en">generateFood</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-kos">}</span> <span class="pl-k">else</span> <span class="pl-kos">{</span>
+                <span class="pl-s1">snake</span><span class="pl-kos">.</span><span class="pl-en">pop</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-kos">}</span>
+            
+            <span class="pl-en">draw</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+
+        <span class="pl-k">function</span> <span class="pl-en">draw</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-c1">fillStyle</span> <span class="pl-c1">=</span> <span class="pl-s">'#fff'</span><span class="pl-kos">;</span>
+            <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-en">fillRect</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-s1">canvas</span><span class="pl-kos">.</span><span class="pl-c1">width</span><span class="pl-kos">,</span> <span class="pl-s1">canvas</span><span class="pl-kos">.</span><span class="pl-c1">height</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            
+            <span class="pl-c">// 蛇蛇</span>
+            <span class="pl-k">const</span> <span class="pl-s1">difficulty</span> <span class="pl-c1">=</span> <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">getElementById</span><span class="pl-kos">(</span><span class="pl-s">'difficulty'</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-c1">value</span><span class="pl-kos">;</span>
+            <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-c1">fillStyle</span> <span class="pl-c1">=</span> <span class="pl-s1">difficultySettings</span><span class="pl-kos">[</span><span class="pl-s1">difficulty</span><span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-c1">color</span><span class="pl-kos">;</span>
+            <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">segment</span> <span class="pl-k">of</span> <span class="pl-s1">snake</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-en">fillRect</span><span class="pl-kos">(</span><span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">*</span> <span class="pl-s1">gridSize</span><span class="pl-kos">,</span> <span class="pl-s1">segment</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">*</span> <span class="pl-s1">gridSize</span><span class="pl-kos">,</span> <span class="pl-s1">gridSize</span><span class="pl-c1">-</span><span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-s1">gridSize</span><span class="pl-c1">-</span><span class="pl-c1">2</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-kos">}</span>
+            
+            <span class="pl-c">// 果果</span>
+            <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-c1">fillStyle</span> <span class="pl-c1">=</span> <span class="pl-s">'#FF0000'</span><span class="pl-kos">;</span>
+            <span class="pl-s1">ctx</span><span class="pl-kos">.</span><span class="pl-en">fillRect</span><span class="pl-kos">(</span><span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">x</span> <span class="pl-c1">*</span> <span class="pl-s1">gridSize</span><span class="pl-kos">,</span> <span class="pl-s1">food</span><span class="pl-kos">.</span><span class="pl-c1">y</span> <span class="pl-c1">*</span> <span class="pl-s1">gridSize</span><span class="pl-kos">,</span> <span class="pl-s1">gridSize</span><span class="pl-c1">-</span><span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-s1">gridSize</span><span class="pl-c1">-</span><span class="pl-c1">2</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+
+        <span class="pl-k">function</span> <span class="pl-en">gameOver</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+            <span class="pl-en">clearInterval</span><span class="pl-kos">(</span><span class="pl-s1">gameLoop</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-en">alert</span><span class="pl-kos">(</span><span class="pl-s">`游戏结束咯，得分: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">score</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+
+        <span class="pl-c">// 方向控制</span>
+        <span class="pl-smi">document</span><span class="pl-kos">.</span><span class="pl-en">addEventListener</span><span class="pl-kos">(</span><span class="pl-s">'keydown'</span><span class="pl-kos">,</span> <span class="pl-kos">(</span><span class="pl-s1">e</span><span class="pl-kos">)</span> <span class="pl-c1">=&gt;</span> <span class="pl-kos">{</span>
+            <span class="pl-k">switch</span><span class="pl-kos">(</span><span class="pl-s1">e</span><span class="pl-kos">.</span><span class="pl-c1">key</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+                <span class="pl-k">case</span> <span class="pl-s">'ArrowUp'</span>:
+                    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">dy</span> <span class="pl-c1">===</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">-</span><span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+                    <span class="pl-k">break</span><span class="pl-kos">;</span>
+                <span class="pl-k">case</span> <span class="pl-s">'ArrowDown'</span>:
+                    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">dy</span> <span class="pl-c1">===</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+                    <span class="pl-k">break</span><span class="pl-kos">;</span>
+                <span class="pl-k">case</span> <span class="pl-s">'ArrowLeft'</span>:
+                    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">dx</span> <span class="pl-c1">===</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">-</span><span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+                    <span class="pl-k">break</span><span class="pl-kos">;</span>
+                <span class="pl-k">case</span> <span class="pl-s">'ArrowRight'</span>:
+                    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">dx</span> <span class="pl-c1">===</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span> <span class="pl-s1">dx</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">dy</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-kos">}</span>
+                    <span class="pl-k">break</span><span class="pl-kos">;</span>
+            <span class="pl-kos">}</span>
+        <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">&lt;/</span><span class="pl-ent">script</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">html</span><span class="pl-kos">&gt;</span></pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Koi-Blue.github.io">Koi_Blue</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/31/2024"!=""){
+    var startSite=new Date("07/31/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Koi-Blue/Koi-Blue.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script>
+
+</html>
